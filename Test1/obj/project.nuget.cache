@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "NnxcNMI/ICQ=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Test1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\lethe\\.nuget\\packages\\materialdesigncolors\\5.2.2-ci875\\materialdesigncolors.5.2.2-ci875.nupkg.sha512",
+    "C:\\Users\\lethe\\.nuget\\packages\\materialdesignthemes\\5.2.1\\materialdesignthemes.5.2.1.nupkg.sha512",
+    "C:\\Users\\lethe\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512"
+  ],
+  "logs": []
+}
