@@ -490,17 +490,6 @@
                                             </ComboBox>
                                         </StackPanel>
                                     </StackPanel>
-
-                                    <!--  Button Click  -->
-
-
-                                </Grid>
-
-                                <Grid Grid.Column="1">
-
-
-
-
                                     <StackPanel
                                         Grid.Row="1"
                                         Grid.Column="0"
@@ -525,12 +514,40 @@
                                             Content="Clear" />
                                     </StackPanel>
                                 </Grid>
+
+                                <!--  button click  -->
+                                <StackPanel Grid.Column="1" Orientation="Vertical">
+                                    <Grid>
+                                        <Image
+                                            x:Name="ProductImage"
+                                            Width="100"
+                                            Height="100"
+                                            Margin="0,0,0,20"
+                                            Source="{Binding ImangePathProduct}">
+                                            <Image.Clip>
+                                                <EllipseGeometry
+                                                    Center="50,50"
+                                                    RadiusX="50"
+                                                    RadiusY="50" />
+                                            </Image.Clip>
+                                        </Image>
+                                    </Grid>
+                                    <Button
+                                        x:Name="btnBowseImageProduc"
+                                        Width="100"
+                                        Click="btnBowseImageProduc_Click"
+                                        Content="Bownse" />
+
+
+
+                                </StackPanel>
                             </Grid>
 
                             <!--  DataGrid Product  -->
                             <DataGrid
                                 x:Name="DataGridProduct"
                                 Grid.Row="0"
+                                materialDesign:DataGridAssist.SelectedCellBorderBrush="{x:Null}"
                                 AutoGenerateColumns="False"
                                 BorderBrush="Black"
                                 BorderThickness="1"
@@ -685,298 +702,335 @@
                                             </Style>
                                         </DataGridTextColumn.ElementStyle>
                                     </DataGridTextColumn>
-
-
-
                                 </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </TabItem>
+
+
+                    <!--  Manage Account  -->
+                    <TabItem Width="80">
+                        <TabItem.Header>
+                            <StackPanel Width="auto" Height="auto">
+                                <materialDesign:PackIcon
+                                    Width="30"
+                                    Height="30"
+                                    Margin="0,0,0,3"
+                                    HorizontalAlignment="Center"
+                                    Kind="AccountGroupOutline" />
+                                <TextBlock HorizontalAlignment="Center" Text="Account" />
+                            </StackPanel>
+                        </TabItem.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="0.5*" />
+                            </Grid.RowDefinitions>
+
+                            <DataGrid
+                                x:Name="DataGridAccount"
+                                materialDesign:DataGridAssist.SelectedCellBorderBrush="{x:Null}"
+                                AutoGenerateColumns="False"
+                                CanUserAddRows="False"
+                                HeadersVisibility="All"
+                                IsReadOnly="True"
+                                ItemsSource="{Binding Items1}"
+                                SelectionChanged="DataGrid_SelectionChanged"
+                                SelectionUnit="{Binding ElementName=selectionUnitComboBox, Path=SelectedValue}">
 
 
 
 
-                                <Grid>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Width="50" Binding="{Binding Id}">
+                                        <DataGridTextColumn.Header>
+                                            <TextBlock Text="ID" />
+                                        </DataGridTextColumn.Header>
+                                    </DataGridTextColumn>
+
+                                    <DataGridTextColumn Binding="{Binding userName}">
+                                        <DataGridTextColumn.Header>
+                                            <TextBlock Text="User Name" />
+                                        </DataGridTextColumn.Header>
+                                    </DataGridTextColumn>
+
+                                    <DataGridTextColumn Binding="{Binding FullName}">
+                                        <DataGridTextColumn.Header>
+                                            <TextBlock Text="Full Name" />
+                                        </DataGridTextColumn.Header>
+                                    </DataGridTextColumn>
+
+                                    <DataGridTextColumn Binding="{Binding Age}">
+                                        <DataGridTextColumn.Header>
+                                            <TextBlock Text="Age" />
+                                        </DataGridTextColumn.Header>
+                                    </DataGridTextColumn>
+
+                                    <DataGridTextColumn Binding="{Binding Gender}">
+                                        <DataGridTextColumn.Header>
+                                            <TextBlock Text="Gender" />
+                                        </DataGridTextColumn.Header>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Binding="{Binding RoleAccount}">
+                                        <DataGridTextColumn.Header>
+                                            <TextBlock Text="Role" />
+                                        </DataGridTextColumn.Header>
+                                    </DataGridTextColumn>
+
+                                    <DataGridTextColumn Width="120" Binding="{Binding phoneNumber}">
+                                        <DataGridTextColumn.Header>
+                                            <TextBlock Text="PhoneNumber" TextAlignment="Center" />
+                                        </DataGridTextColumn.Header>
+                                    </DataGridTextColumn>
+
+                                    <DataGridTextColumn Width="170" Binding="{Binding Email}">
+
+                                        <DataGridTextColumn.Header>
+                                            <TextBlock Text="Email" TextAlignment="Center" />
+                                        </DataGridTextColumn.Header>
+                                    </DataGridTextColumn>
+
+                                    <DataGridTextColumn Width="170" Binding="{Binding Address}">
+                                        <DataGridTextColumn.Header>
+                                            <TextBlock Text="address" />
+                                        </DataGridTextColumn.Header>
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="0.6*" />
+                                </Grid.ColumnDefinitions>
+                                <!--  Infomation Customer  -->
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="160" />
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="160" />
+                                    </Grid.ColumnDefinitions>
+
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="0.5*" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
-                                    <DataGrid
-                                        x:Name="DataGridAccount"
-                                        AutoGenerateColumns="False"
-                                        CanUserAddRows="False"
-                                        HeadersVisibility="All"
-                                        IsReadOnly="True"
-                                        ItemsSource="{Binding Items1}"
-                                        SelectionChanged="DataGrid_SelectionChanged"
-                                        SelectionUnit="{Binding ElementName=selectionUnitComboBox, Path=SelectedValue}">
-                                        <DataGrid.Columns>
-                                            <DataGridTemplateColumn>
-                                                <DataGridTemplateColumn.Header>
-                                                    <CheckBox x:Name="HeaderCheckAccount" Click="HeaderCheckAccount_Click" />
-                                                </DataGridTemplateColumn.Header>
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" />
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
+                                    <!--  ID  -->
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center"
+                                        Text="ID:" />
+                                    <TextBox
+                                        Name="txtUserIdAC"
+                                        Grid.Column="1"
+                                        Width="140"
+                                        HorizontalAlignment="Center"
+                                        Text="{Binding Id, Mode=TwoWay}" />
+
+                                    <!--  User Name  -->
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="3"
+                                        VerticalAlignment="Center"
+                                        Text="User Name:" />
+                                    <TextBox
+                                        Name="txtUserNameAC"
+                                        Grid.Row="0"
+                                        Grid.Column="4"
+                                        Width="140"
+                                        Text="{Binding userName, Mode=TwoWay}" />
+
+                                    <!--  Full Name  -->
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center"
+                                        Text="Full Name:" />
+                                    <TextBox
+                                        Name="txtFullNameAC"
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Width="140"
+                                        Text="{Binding FullName, Mode=TwoWay}" />
+
+                                    <!--  Age  -->
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        VerticalAlignment="Center"
+                                        Text="Age:" />
+                                    <TextBox
+                                        Name="txtAgeAC"
+                                        Grid.Row="1"
+                                        Grid.Column="4"
+                                        Width="140"
+                                        Text="{Binding Age, Mode=TwoWay}" />
+
+                                    <!--  Gender  -->
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center"
+                                        Text="Gender:" />
+                                    <TextBox
+                                        Name="txtGenderAC"
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        Width="140"
+                                        Text="{Binding Gender, Mode=TwoWay}" />
+
+                                    <!--  Address  -->
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        Grid.Column="3"
+                                        VerticalAlignment="Center"
+                                        Text="Address:" />
+                                    <TextBox
+                                        Name="txtAddress"
+                                        Grid.Row="2"
+                                        Grid.Column="4"
+                                        Width="140"
+                                        Text="{Binding Address, Mode=TwoWay}" />
+
+                                    <!--  Phone Number  -->
+                                    <TextBlock
+                                        Grid.Row="3"
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center"
+                                        Text="Phone Number:" />
+                                    <TextBox
+                                        Name="txtPhoneNumberAC"
+                                        Grid.Row="3"
+                                        Grid.Column="1"
+                                        Width="140"
+                                        Text="{Binding PhoneNumber, Mode=TwoWay}" />
+
+                                    <TextBlock
+                                        Grid.Row="4"
+                                        Grid.Column="0"
+                                        VerticalAlignment="Bottom"
+                                        Text="Role:" />
+                                    <StackPanel
+                                        Grid.Row="4"
+                                        Grid.Column="1"
+                                        Margin="0,10,0,0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <RadioButton
+                                            x:Name="rdoAdmin"
+                                            Margin="0,0,20,0"
+                                            Content="Admin"
+                                            GroupName="Role" />
+                                        <RadioButton
+                                            x:Name="rdoCustomer"
+                                            Margin="0,0,20,0"
+                                            Content="Customer"
+                                            GroupName="Role" />
+                                    </StackPanel>
 
 
-                                            <DataGridTextColumn Width="50" Binding="{Binding Id}">
-                                                <DataGridTextColumn.Header>
-                                                    <TextBlock Text="ID" />
-                                                </DataGridTextColumn.Header>
-                                            </DataGridTextColumn>
+                                    <!--  Email  -->
+                                    <TextBlock
+                                        Grid.Row="3"
+                                        Grid.Column="3"
+                                        VerticalAlignment="Center"
+                                        Text="Email:" />
+                                    <TextBox
+                                        Name="txtEmailAC"
+                                        Grid.Row="3"
+                                        Grid.Column="4"
+                                        Width="140"
+                                        Text="{Binding Email, Mode=TwoWay}" />
 
-                                            <DataGridTextColumn Binding="{Binding userName}">
-                                                <DataGridTextColumn.Header>
-                                                    <TextBlock Text="User Name" />
-                                                </DataGridTextColumn.Header>
-                                            </DataGridTextColumn>
+                                    <TextBlock
+                                        Grid.Row="4"
+                                        Grid.Column="3"
+                                        VerticalAlignment="Center"
+                                        Text="PassWord: " />
+                                    <PasswordBox
+                                        x:Name="pswdAC"
+                                        Grid.Row="4"
+                                        Grid.Column="4"
+                                        Width="150" />
 
-                                            <DataGridTextColumn Binding="{Binding FullName}">
-                                                <DataGridTextColumn.Header>
-                                                    <TextBlock Text="Full Name" />
-                                                </DataGridTextColumn.Header>
-                                            </DataGridTextColumn>
 
-                                            <DataGridTextColumn Binding="{Binding Age}">
-                                                <DataGridTextColumn.Header>
-                                                    <TextBlock Text="Age" />
-                                                </DataGridTextColumn.Header>
-                                            </DataGridTextColumn>
+                                </Grid>
+                                <!--  Button Functions  -->
+                                <StackPanel Grid.Column="1" Orientation="Vertical">
+                                    <!--  Search By Name  -->
+                                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Margin="10"
+                                            VerticalAlignment="Center"
+                                            Text="Search By Name:" />
+                                        <TextBox
+                                            x:Name="txtSearchAC"
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Width="150"
+                                            Margin="5" />
+                                    </StackPanel>
 
-                                            <DataGridTextColumn Binding="{Binding Gender}">
-                                                <DataGridTextColumn.Header>
-                                                    <TextBlock Text="Gender" />
-                                                </DataGridTextColumn.Header>
-                                            </DataGridTextColumn>
-
-                                            <DataGridTextColumn Binding="{Binding Address}">
-                                                <DataGridTextColumn.Header>
-                                                    <TextBlock Text="address" />
-                                                </DataGridTextColumn.Header>
-                                            </DataGridTextColumn>
-
-                                            <DataGridTextColumn Binding="{Binding phoneNumber}">
-                                                <DataGridTextColumn.Header>
-                                                    <TextBlock Text="PhoneNumber" TextAlignment="Center" />
-                                                </DataGridTextColumn.Header>
-                                            </DataGridTextColumn>
-
-                                            <DataGridTextColumn Binding="{Binding Email}">
-                                                <DataGridTextColumn.ElementStyle>
-                                                    <Style TargetType="TextBlock">
-                                                        <Setter Property="HorizontalAlignment" Value="Center" />
-                                                        <Setter Property="VerticalAlignment" Value="Center" />
-                                                        <Setter Property="TextAlignment" Value="Center" />
-                                                    </Style>
-                                                </DataGridTextColumn.ElementStyle>
-                                                <DataGridTextColumn.Header>
-                                                    <TextBlock Text="Email" TextAlignment="Center" />
-                                                </DataGridTextColumn.Header>
-                                            </DataGridTextColumn>
-                                        </DataGrid.Columns>
-
-                                    </DataGrid>
-
-                                    <Grid Grid.Row="1">
+                                    <!--  Buttons  -->
+                                    <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <!--  Infomation Customer  -->
-                                        <Grid Grid.Row="0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="160" />
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="160" />
-                                            </Grid.ColumnDefinitions>
-
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
-
-                                            <!--  ID  -->
-                                            <TextBlock
-                                                Grid.Row="0"
-                                                Grid.Column="0"
-                                                VerticalAlignment="Center"
-                                                Text="ID:" />
-                                            <TextBox
-                                                Name="txtUserIdAC"
-                                                Width="190"
-                                                Padding="10"
-                                                HorizontalAlignment="Center"
-                                                materialDesign:HintAssist.Background="White"
-                                                materialDesign:HintAssist.Hint="Enter Your Name"
-                                                materialDesign:HintAssist.HintPaddingBrush="White"
-                                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                                Text="{Binding Id, Mode=TwoWay}" />
-
-                                            <!--  User Name  -->
-                                            <TextBlock
-                                                Grid.Row="0"
-                                                Grid.Column="2"
-                                                VerticalAlignment="Center"
-                                                Text="User Name:" />
-                                            <TextBox
-                                                Name="txtUserNameAC"
-                                                Grid.Row="0"
-                                                Grid.Column="3"
-                                                Width="140"
-                                                Text="{Binding userName, Mode=TwoWay}" />
-
-                                            <!--  Full Name  -->
-                                            <TextBlock
-                                                Grid.Row="1"
-                                                Grid.Column="0"
-                                                VerticalAlignment="Center"
-                                                Text="Full Name:" />
-                                            <TextBox
-                                                Name="txtFullNameAC"
-                                                Grid.Row="1"
-                                                Grid.Column="1"
-                                                Width="140"
-                                                Text="{Binding FullName, Mode=TwoWay}" />
-
-                                            <!--  Age  -->
-                                            <TextBlock
-                                                Grid.Row="1"
-                                                Grid.Column="2"
-                                                VerticalAlignment="Center"
-                                                Text="Age:" />
-                                            <TextBox
-                                                Name="txtAgeAC"
-                                                Grid.Row="1"
-                                                Grid.Column="3"
-                                                Width="140"
-                                                Text="{Binding Age, Mode=TwoWay}" />
-
-                                            <!--  Gender  -->
-                                            <TextBlock
-                                                Grid.Row="2"
-                                                Grid.Column="0"
-                                                VerticalAlignment="Center"
-                                                Text="Gender:" />
-                                            <TextBox
-                                                Name="txtGenderAC"
-                                                Grid.Row="2"
-                                                Grid.Column="1"
-                                                Width="140"
-                                                Text="{Binding Gender, Mode=TwoWay}" />
-
-                                            <!--  Address  -->
-                                            <TextBlock
-                                                Grid.Row="2"
-                                                Grid.Column="2"
-                                                VerticalAlignment="Center"
-                                                Text="Address:" />
-                                            <TextBox
-                                                Name="txtAddress"
-                                                Grid.Row="2"
-                                                Grid.Column="3"
-                                                Width="140"
-                                                Text="{Binding Address, Mode=TwoWay}" />
-
-                                            <!--  Phone Number  -->
-                                            <TextBlock
-                                                Grid.Row="3"
-                                                Grid.Column="0"
-                                                VerticalAlignment="Center"
-                                                Text="Phone Number:" />
-                                            <TextBox
-                                                Name="txtPhoneNumberAC"
-                                                Grid.Row="3"
-                                                Grid.Column="1"
-                                                Width="140"
-                                                Text="{Binding PhoneNumber, Mode=TwoWay}" />
-
-                                            <!--  Email  -->
-                                            <TextBlock
-                                                Grid.Row="3"
-                                                Grid.Column="2"
-                                                VerticalAlignment="Center"
-                                                Text="Email:" />
-                                            <TextBox
-                                                Name="txtEmailAC"
-                                                Grid.Row="3"
-                                                Grid.Column="3"
-                                                Width="140"
-                                                Text="{Binding Email, Mode=TwoWay}" />
-                                        </Grid>
-                                        <!--  Button Functions  -->
-                                        <StackPanel Grid.Column="1" Orientation="Vertical">
-                                            <!--  Search By Name  -->
-                                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                                <TextBlock
-                                                    Grid.Row="0"
-                                                    Grid.Column="0"
-                                                    Margin="10"
-                                                    VerticalAlignment="Center"
-                                                    Text="Search By Name:" />
-                                                <TextBox
-                                                    x:Name="txtSearchAC"
-                                                    Grid.Row="0"
-                                                    Grid.Column="1"
-                                                    Width="150"
-                                                    Margin="5" />
-                                            </StackPanel>
-
-                                            <!--  Buttons  -->
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-                                                <Button
-                                                    x:Name="btnCreateAC"
-                                                    Grid.Column="0"
-                                                    Width="100"
-                                                    Margin="5"
-                                                    Background="{StaticResource ColorSubmit}"
-                                                    Content="Create" />
-                                                <Button
-                                                    x:Name="btnSearchAC"
-                                                    Grid.Column="1"
-                                                    Width="100"
-                                                    Margin="5"
-                                                    Background="{StaticResource PrimaryHueMidBrush}"
-                                                    Content="Search" />
-                                            </Grid>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-                                                <Button
-                                                    x:Name="btnUpdateAC"
-                                                    Grid.Column="0"
-                                                    Width="100"
-                                                    Margin="5"
-                                                    Background="{StaticResource MaterialDesign.Brush.Primary.Dark}"
-                                                    Content="Update" />
-                                                <Button
-                                                    x:Name="btnDeleteAC"
-                                                    Grid.Column="1"
-                                                    Width="100"
-                                                    Margin="5"
-                                                    Background="{StaticResource ColorRedsolid}"
-                                                    Content="Delete" />
-                                            </Grid>
-
-
-                                        </StackPanel>
-
+                                        <Button
+                                            x:Name="btnCreateAC"
+                                            Grid.Column="0"
+                                            Width="100"
+                                            Margin="5"
+                                            Background="{StaticResource ColorSubmit}"
+                                            Content="Create" />
+                                        <Button
+                                            x:Name="btnSearchAC"
+                                            Grid.Column="1"
+                                            Width="100"
+                                            Margin="5"
+                                            Background="{StaticResource PrimaryHueMidBrush}"
+                                            Content="Search" />
                                     </Grid>
-
-                                </Grid>
-                            </DataGrid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Button
+                                            x:Name="btnUpdateAC"
+                                            Grid.Column="0"
+                                            Width="100"
+                                            Margin="5"
+                                            Background="{StaticResource MaterialDesign.Brush.Primary.Dark}"
+                                            Content="Update" />
+                                        <Button
+                                            x:Name="btnDeleteAC"
+                                            Grid.Column="1"
+                                            Width="100"
+                                            Margin="5"
+                                            Background="{StaticResource ColorRedsolid}"
+                                            Content="Delete" />
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
                         </Grid>
                     </TabItem>
+
+
+
+
+
                     <!--  Manage Bills  -->
                     <TabItem Width="80">
                         <TabItem.Header>
@@ -993,7 +1047,7 @@
                         <Grid Margin="16">
                             <DataGrid
                                 Grid.Row="0"
-                                materialDesign:DataGridAssist.SelectedCellBorderBrush="Transparent"
+                                materialDesign:DataGridAssist.SelectedCellBorderBrush="{x:Null}"
                                 AutoGenerateColumns="False"
                                 BorderBrush="Black"
                                 BorderThickness="1"
@@ -1119,27 +1173,17 @@
                                     </DataGridTextColumn>
 
                                     <!--  ComboBox Column for Status  -->
-                                    <DataGridComboBoxColumn Width="auto" SelectedItemBinding="{Binding Status}">
-                                        <DataGridComboBoxColumn.HeaderTemplate>
+                                    <DataGridTemplateColumn Width="auto">
+                                        <DataGridTemplateColumn.Header>
+                                            <TextBlock FontSize="14" Text="Status" />
+                                        </DataGridTemplateColumn.Header>
+                                        <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock FontSize="14" Text="Status" />
+                                                <TextBlock Text="{Binding Status}" />
                                             </DataTemplate>
-                                        </DataGridComboBoxColumn.HeaderTemplate>
-                                        <DataGridComboBoxColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="TextAlignment" Value="Center" />
-                                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                                <Setter Property="VerticalAlignment" Value="Center" />
-                                            </Style>
-                                        </DataGridComboBoxColumn.ElementStyle>
-                                        <DataGridComboBoxColumn.EditingElementStyle>
-                                            <Style TargetType="ComboBox">
-                                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                                <Setter Property="VerticalAlignment" Value="Center" />
-                                                <Setter Property="MinWidth" Value="100" />
-                                            </Style>
-                                        </DataGridComboBoxColumn.EditingElementStyle>
-                                    </DataGridComboBoxColumn>
+                                        </DataGridTemplateColumn.CellTemplate>
+
+                                    </DataGridTemplateColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>

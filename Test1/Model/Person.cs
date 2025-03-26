@@ -32,6 +32,7 @@ namespace Test1.Model
 
         public string? pathImagePerson { get; set; }
 
+        public bool roleAccount { get; set; }
      
     }
 }

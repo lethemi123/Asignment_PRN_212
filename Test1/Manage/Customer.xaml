@@ -418,29 +418,52 @@
                             </Grid.RowDefinitions>
                             <DataGrid
                                 x:Name="DataGridOrder"
+                                materialDesign:DataGridAssist.SelectedCellBorderBrush="{x:Null}"
                                 AutoGenerateColumns="False"
                                 CanUserAddRows="False"
                                 HeadersVisibility="All"
                                 IsReadOnly="True"
-                                ItemsSource="{Binding  DatagridViewOrder}"
+                                ItemsSource="{Binding DatagridViewOrder}"
                                 SelectionUnit="{Binding ElementName=selectionUnitComboBox, Path=SelectedValue}">
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn>
                                         <DataGridTemplateColumn.Header>
-                                            <CheckBox x:Name="HeaderCheckbox" Click="HeaderCheckbox_Click"/>
+                                            <CheckBox x:Name="HeaderCheckbox" Click="HeaderCheckbox_Click" />
                                         </DataGridTemplateColumn.Header>
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <CheckBox IsChecked="{Binding IsSelected , Mode=TwoWay}"/>
+                                                <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
 
-                                    <DataGridTextColumn Header="Id" Binding="{Binding ProductId }" Width="*"/>
-                                    <DataGridTextColumn Header="Name" Binding="{Binding ProductName}" Width="*"/>
-                                    <DataGridTextColumn Header="Stock" Binding="{Binding Stock}" Width="*"/>
-                                    <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="*"/>
-                                    <DataGridTextColumn Header="Total Aumount" Binding="{Binding TotalAmount}" Width="*"/>
+                                    <DataGridTextColumn
+                                        Width="*"
+                                        Binding="{Binding ProductId}"
+                                        Header="Id" />
+                                    <DataGridTemplateColumn Width="*">
+                                        <DataGridTemplateColumn.Header>
+                                            <TextBlock Text="Image"/>
+                                        </DataGridTemplateColumn.Header>
+                                    </DataGridTemplateColumn>
+                                    
+                                    
+                                    <DataGridTextColumn
+                                        Width="*"
+                                        Binding="{Binding ProductName}"
+                                        Header="Name" />
+                                    <DataGridTextColumn
+                                        Width="*"
+                                        Binding="{Binding Stock}"
+                                        Header="Stock" />
+                                    <DataGridTextColumn
+                                        Width="*"
+                                        Binding="{Binding Price}"
+                                        Header="Price" />
+                                    <DataGridTextColumn
+                                        Width="*"
+                                        Binding="{Binding TotalAmount}"
+                                        Header="Total Aumount" />
                                 </DataGrid.Columns>
                             </DataGrid>
 

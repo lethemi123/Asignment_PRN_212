@@ -135,7 +135,7 @@ namespace Test1
                 firstNameText.Text = selectPerson.FName;
                 fullNameText.Text = selectPerson.FullName;
                 ageText.Text = selectPerson.Age.ToString();
-                cboGender.Text = selectPerson.Gender.ToString();
+             
             }
         }
 

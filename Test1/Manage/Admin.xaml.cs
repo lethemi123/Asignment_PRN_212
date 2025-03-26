@@ -23,7 +23,7 @@ namespace Test1.Manage
     public partial class Admin : Window
     {      
         public ObservableCollection<Persons> Items1 { get; set; }
-        public ObservableCollection<Categories> Items2 { get; set; }
+     
         public ObservableCollection<Products> ItemDataGridProducts { get; set; }
 
         public Admin()
@@ -31,7 +31,6 @@ namespace Test1.Manage
             InitializeComponent();
             Window window = Window.GetWindow(this);
             window.WindowState = WindowState.Normal;
-            Items2 = new ObservableCollection<Categories> { new Categories { CategoryID = "1", CategoryName = " Computer" } };
             ItemDataGridProducts = new ObservableCollection<Products>
         {
             new Products{ProductId = "1", ProductName = "CX2 Computer", Price = 120000, ProductDescription = "this is computer doing gaming", IsSelected = false, Stock = 100, CateGoryID = "Computer", ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Linh.jpg" }
@@ -84,21 +83,27 @@ namespace Test1.Manage
         private void HeaderCheckbox_Click(object sender, RoutedEventArgs e)
         {
             bool iMax = (HeaderCheckbox.IsChecked == true);
-            foreach(var item in ItemDataGridProducts)
+            foreach (var item in ItemDataGridProducts)
             {
                 item.IsSelected = iMax;
             }
             DataGridProduct.Items.Refresh();
         }
+        
 
-        private void HeaderCheckAccount_Click(object sender, RoutedEventArgs e)
+        private void btnBowseImageProduc_Click(object sender, RoutedEventArgs e)
         {
-            bool checkBoxAccount = (HeaderCheckbox.IsChecked == true);
-            foreach(var item in Items1)
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
+            if (openFileDialog.ShowDialog() == true)
             {
-                item.IsSelected = checkBoxAccount;
+                ProductImage.Source = new BitmapImage(new Uri(openFileDialog.FileName));
             }
-            DataGridAccount.Items.Refresh();
+        }
+
+        private void dataGrid_name_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

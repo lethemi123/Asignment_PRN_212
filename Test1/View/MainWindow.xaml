@@ -55,7 +55,6 @@
                 </DockPanel>
                 <DockPanel Margin="5">
                     <TextBlock Text="Gender" Width="100" VerticalAlignment="Center" TextAlignment="Center" />
-                    <ComboBox x:Name="cboGender" ItemsSource="{Binding ListGender}" SelectedItem="{Binding SelectPeron.Gender, Mode=TwoWay}" Width="200" VerticalAlignment="Center"/>
                 </DockPanel>
                 <DockPanel Margin="5">
                     <TextBlock Text="Full Name:" Width="100" VerticalAlignment="Center" TextAlignment="Center"/>
