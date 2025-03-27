@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -36,7 +37,34 @@ namespace Test1.Manage
                 new Products {ProductId = "SC4",ProductName = "Computer C", Price = 3000,CateGoryID = "Acer", ProductDescription = "Computer screen", ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg"},
                 new Products {ProductId = "SC5",ProductName = "Computer E", Price = 1000,CateGoryID = "Acer", ProductDescription = "Computer screen", ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg"}
             };
-
+            ListProducts = new ObservableCollection<Products>
+            {
+                new Products {ProductId = "SC1",ProductName = "Computer Acer",CateGoryID = "Acer", ProductDescription = "Computer screen", Price = 5000,ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg" },
+                new Products {ProductId = "SC2",ProductName = "Computer A", CateGoryID = "Acer", ProductDescription = "Computer screen", Price = 6000, ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg" },
+                new Products {ProductId = "SC3",ProductName = "Computer B",CateGoryID = "Acer", ProductDescription = "Computer screen", Price = 2000, ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg"},
+                new Products {ProductId = "SC4",ProductName = "Computer C", Price = 3000,CateGoryID = "Acer", ProductDescription = "Computer screen", ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg"},
+                new Products {ProductId = "SC5",ProductName = "Computer E", Price = 1000,CateGoryID = "Acer", ProductDescription = "Computer screen", ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg"},
+                 new Products {ProductId = "SC1",ProductName = "Computer Acer",CateGoryID = "Acer", ProductDescription = "Computer screen", Price = 5000,ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg" },
+                new Products {ProductId = "SC2",ProductName = "Computer A", CateGoryID = "Acer", ProductDescription = "Computer screen", Price = 6000, ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg" },
+                new Products {ProductId = "SC3",ProductName = "Computer B",CateGoryID = "Acer", ProductDescription = "Computer screen", Price = 2000, ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg"},
+                new Products {ProductId = "SC4",ProductName = "Computer C", Price = 3000,CateGoryID = "Acer", ProductDescription = "Computer screen", ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg"},
+                new Products {ProductId = "SC5",ProductName = "Computer E", Price = 1000,CateGoryID = "Acer", ProductDescription = "Computer screen", ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg"},
+                 new Products {ProductId = "SC1",ProductName = "Computer Acer",CateGoryID = "Acer", ProductDescription = "Computer screen", Price = 5000,ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg" },
+                new Products {ProductId = "SC2",ProductName = "Computer A", CateGoryID = "Acer", ProductDescription = "Computer screen", Price = 6000, ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg" },
+                new Products {ProductId = "SC3",ProductName = "Computer B",CateGoryID = "Acer", ProductDescription = "Computer screen", Price = 2000, ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg"},
+                new Products {ProductId = "SC4",ProductName = "Computer C", Price = 3000,CateGoryID = "Acer", ProductDescription = "Computer screen", ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg"},
+                new Products {ProductId = "SC5",ProductName = "Computer E", Price = 1000,CateGoryID = "Acer", ProductDescription = "Computer screen", ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg"},
+                 new Products {ProductId = "SC1",ProductName = "Computer Acer",CateGoryID = "Acer", ProductDescription = "Computer screen", Price = 5000,ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg" },
+                new Products {ProductId = "SC2",ProductName = "Computer A", CateGoryID = "Acer", ProductDescription = "Computer screen", Price = 6000, ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg" },
+                new Products {ProductId = "SC3",ProductName = "Computer B",CateGoryID = "Acer", ProductDescription = "Computer screen", Price = 2000, ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg"},
+                new Products {ProductId = "SC4",ProductName = "Computer C", Price = 3000,CateGoryID = "Acer", ProductDescription = "Computer screen", ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg"},
+                new Products {ProductId = "SC5",ProductName = "Computer E", Price = 1000,CateGoryID = "Acer", ProductDescription = "Computer screen", ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg"},
+                 new Products {ProductId = "SC1",ProductName = "Computer Acer",CateGoryID = "Acer", ProductDescription = "Computer screen", Price = 5000,ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg" },
+                new Products {ProductId = "SC2",ProductName = "Computer A", CateGoryID = "Acer", ProductDescription = "Computer screen", Price = 6000, ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg" },
+                new Products {ProductId = "SC3",ProductName = "Computer B",CateGoryID = "Acer", ProductDescription = "Computer screen", Price = 2000, ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg"},
+                new Products {ProductId = "SC4",ProductName = "Computer C", Price = 3000,CateGoryID = "Acer", ProductDescription = "Computer screen", ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg"},
+                new Products {ProductId = "SC5",ProductName = "Computer E", Price = 1000,CateGoryID = "Acer", ProductDescription = "Computer screen", ImangePathProduct = "C:\\Users\\lethe\\source\\repos\\Test1\\Test1\\Image\\Karma is a Cat.jpg"}
+            };
 
 
 
@@ -64,6 +92,17 @@ namespace Test1.Manage
             }
             DataGridOrder.Items.Refresh();
             
+        }
+
+        private void btnChoosePicture_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                ProfileImage.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+            }
+
         }
     }
 }

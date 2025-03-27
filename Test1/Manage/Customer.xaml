@@ -24,35 +24,10 @@
         <Grid Grid.Row="1">
             <materialDesign:Card>
                 <TabControl Style="{StaticResource MaterialDesignNavigationRailTabControl}" TabStripPlacement="left">
-                    <TabItem>
-                        <TabItem.Header>
-                            <StackPanel Width="auto" Height="auto">
-                                <materialDesign:PackIcon
-                                    Width="30"
-                                    Height="30"
-                                    HorizontalAlignment="Center"
-                                    Kind="Home" />
-                                <TextBlock HorizontalAlignment="Center" Text="Home" />
-                            </StackPanel>
-                        </TabItem.Header>
-                        <StackPanel Margin="16">
-                            <TextBlock
-                                Margin="0,0,0,8"
-                                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                                Text="WelCome to my Shop" />
-                            <TextBlock>
-                                <Run Text="tab 1 content. Default look and behaviors." />
-                                <LineBreak />
-                                <LineBreak />
-                                <Run FontStyle="Italic">
-                                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...
-                                </Run>
-                            </TextBlock>
-                        </StackPanel>
-                    </TabItem>
-
+                 
+                    
+                    
                     <!--  Cart Shopping  -->
-
                     <TabItem>
                         <TabItem.Header>
                             <StackPanel Width="auto" Height="auto">
@@ -98,6 +73,7 @@
                                     Padding="20,0,0,0"
                                     HorizontalAlignment="Left"
                                     materialDesign:HintAssist.Hint="Search by Name"
+                                    BorderBrush="{StaticResource ColorGrayBoder}"
                                     Style="{StaticResource MaterialDesignOutlinedTextBox}" />
 
 
@@ -332,6 +308,7 @@
                                                     Height="290"
                                                     Margin="10"
                                                     Padding="10"
+                                                    Cursor="Hand"
                                                     Background="#333"
                                                     BorderBrush="Gray"
                                                     BorderThickness="1"
@@ -443,11 +420,16 @@
                                         Header="Id" />
                                     <DataGridTemplateColumn Width="*">
                                         <DataGridTemplateColumn.Header>
-                                            <TextBlock Text="Image"/>
+                                            <TextBlock Text="Image" />
                                         </DataGridTemplateColumn.Header>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Image Source="{Binding ImangePathProduct}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
-                                    
-                                    
+
+
                                     <DataGridTextColumn
                                         Width="*"
                                         Binding="{Binding ProductName}"
@@ -508,7 +490,7 @@
                                             Width="120"
                                             Margin="0,0,20,0"
                                             FontSize="20"
-                                            Text="Quantity"
+                                            Text="Quantity:"
                                             TextAlignment="Right" />
                                         <TextBlock
                                             x:Name="tblTotalQuanityOrder"
@@ -551,28 +533,207 @@
 
                     <!--  Profile  -->
 
-                    <TabItem>
+                    <!--  ProFile  -->
+                    <TabItem Width="80">
                         <TabItem.Header>
                             <StackPanel Width="auto" Height="auto">
                                 <materialDesign:PackIcon
                                     Width="30"
                                     Height="30"
+                                    Margin="0,0,0,3"
                                     HorizontalAlignment="Center"
-                                    Kind="CardAccountDetailsOutline" />
+                                    Kind="CardAccountDetails" />
                                 <TextBlock HorizontalAlignment="Center" Text="Profile" />
                             </StackPanel>
                         </TabItem.Header>
-                        <StackPanel Margin="16">
-                            <TextBlock
-                                Margin="0,0,0,8"
-                                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                                Text="Sounds" />
-                            <TextBlock>
-                                <Run Text="tab 4 content. Default look and behaviors." />
-                                <LineBreak />
-                                <LineBreak />
-                            </TextBlock>
-                        </StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="0.5*" />
+                                <ColumnDefinition Width="20" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="0.5*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+                            <Border
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                Width="670"
+                                Height="1"
+                                Margin="10,10,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Background="Black"
+                                BorderBrush="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}"
+                                Opacity="0.2" />
+                            <StackPanel
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="10,10,0,0"
+                                Orientation="Vertical">
+                                <TextBlock
+                                    FontSize="20"
+                                    FontWeight="Bold"
+                                    Text="My Profile" />
+                                <TextBlock Margin="0,10,0,0" Text=" Manage profile information for account security" />
+                            </StackPanel>
+                            <Border
+                                Grid.Row="2"
+                                Grid.RowSpan="2"
+                                Grid.Column="1"
+                                Width="1"
+                                Height="270"
+                                Margin="0,0,10,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Background="Black"
+                                BorderBrush="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}"
+                                Opacity="0.2" />
+                            <StackPanel
+                                Grid.Row="2"
+                                Grid.RowSpan="2"
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                Orientation="Vertical">
+                                <Image
+                                    x:Name="ProfileImage"
+                                    Width="100"
+                                    Height="100"
+                                    Margin="0,30,0,30"
+                                    Source="{Binding pathImagePerson}">
+                                    <Image.Clip>
+                                        <EllipseGeometry
+                                            Center="50,50"
+                                            RadiusX="50"
+                                            RadiusY="50" />
+                                    </Image.Clip>
+                                </Image>
+                                <Button
+                                    x:Name="btnChoosePicture"
+                                    Width="150"
+                                    Margin="0,0,0,20"
+                                    HorizontalContentAlignment="Center"
+                                    Click="btnChoosePicture_Click"
+                                    Content="Choose Picture" />
+                                <TextBlock
+                                    FontSize="14"
+                                    Foreground="{StaticResource ColorGrayBoder}"
+                                    Text=" 49 / 5.000 Maximum file size 1 MB Format: .JPEG, .PNG"
+                                    TextAlignment="Center"
+                                    TextWrapping="Wrap" />
+
+                            </StackPanel>
+                            <Grid
+                                Grid.Row="2"
+                                Grid.RowSpan="2"
+                                Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel
+                                    Grid.Column="0"
+                                    Height="187"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center">
+                                    <TextBlock
+                                        Margin="0,0,0,10"
+                                        FontSize="15"
+                                        Text="User Name " />
+                                    <TextBlock
+                                        Margin="0,8,0,10"
+                                        FontSize="15"
+                                        Text="Full Name "
+                                        TextAlignment="Right" />
+                                    <TextBlock
+                                        Margin="0,5,0,0"
+                                        FontSize="15"
+                                        Text="Email "
+                                        TextAlignment="Right" />
+                                    <TextBlock
+                                        Margin="0,12,0,0"
+                                        FontSize="15"
+                                        Text="Number "
+                                        TextAlignment="Right" />
+                                    <TextBlock
+                                        Margin="0,10,0,0"
+                                        FontSize="15"
+                                        Text="Gender "
+                                        TextAlignment="Right" />
+                                    <TextBlock
+                                        Margin="0,12,0,0"
+                                        FontSize="15"
+                                        Text="Birtday "
+                                        TextAlignment="Right" />
+                                </StackPanel>
+
+                                <StackPanel
+                                    Grid.Column="2"
+                                    Margin="15,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox
+                                            x:Name="txtUserName"
+                                            Width="100"
+                                            Margin="0,0,10,10"
+                                            Cursor="None"
+                                            IsReadOnly="True" />
+                                        <DockPanel>
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                FontSize="16"
+                                                Text="Role: " />
+                                            <TextBlock
+                                                Margin="10,0,0,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="16"
+                                                Text="{Binding roleAccount}" />
+                                        </DockPanel>
+                                    </StackPanel>
+                                    <TextBox x:Name="txtFullName" Margin="0,0,0,10" />
+                                    <TextBox x:Name="txtEmail" Margin="0,0,0,10" />
+                                    <TextBox x:Name="txtPhoneNumber" Margin="0,0,0,10" />
+                                    <StackPanel
+                                        Grid.Column="2"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <RadioButton
+                                            x:Name="rdoMale"
+                                            Margin="0,0,20,0"
+                                            
+                                            Content="Male"
+                                            GroupName="Gender" />
+                                        <RadioButton
+                                            x:Name="rdoFeMale"
+                                            Margin="0,0,20,0"
+                                            Content="Female"
+                                            GroupName="Gender" />
+                                        <RadioButton
+                                            x:Name="rdoOther"
+                                            Content="Other"
+                                            GroupName="Gender" />
+                                    </StackPanel>
+                                    <DatePicker materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                                </StackPanel>
+                                <Button
+                                    x:Name="btnSaveProFile"
+                                    Grid.ColumnSpan="2"
+                                    Width="100"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    Background="{StaticResource ColorSave}"
+                                    Content="Save" />
+                            </Grid>
+                        </Grid>
                     </TabItem>
                 </TabControl>
             </materialDesign:Card>

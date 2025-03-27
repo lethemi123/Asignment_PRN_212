@@ -111,15 +111,7 @@ namespace Test1
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedPerson != null)
-            {
-                SelectedPerson.FName = firstNameText.Text;
-               
-                SelectedPerson.Age = int.TryParse(ageText.Text, out int age) ? age : SelectedPerson.Age;
-                
-                dataGrid_name.Items.Refresh();
-                MessageBox.Show("Update successfully!", "Notification", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+           
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
@@ -129,31 +121,13 @@ namespace Test1
 
         private void dataGrid_name_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (dataGrid_name.SelectedItem is Persons selectPerson) // Kiểm tra có phần tử được chọn không
-            {
-                idText.Text = selectPerson.Id.ToString();
-                firstNameText.Text = selectPerson.FName;
-                fullNameText.Text = selectPerson.FullName;
-                ageText.Text = selectPerson.Age.ToString();
-             
-            }
+            
+         
         }
 
         private void txtSearchbyName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string result = txtSearchbyName.Text.Trim().ToLower();
-            if (string.IsNullOrWhiteSpace(result))
-            {
-                dataGrid_name.ItemsSource = ItemsDataGridView;
-            }
-            else
-            {
-                var name = ItemsDataGridView.Where(p =>
-                p.LName.ToLower().Contains(result) ||
-                p.FName.ToLower().Contains(result) ||
-                p.FName.ToLower().Contains(result)).ToList();
-                dataGrid_name.ItemsSource = name;
-            }
+          
             
         }
 

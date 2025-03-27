@@ -308,11 +308,20 @@
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     Orientation="Vertical">
-                                    <TextBox
-                                        x:Name="txtUserName"
-                                        Margin="0,0,0,10"
-                                        Cursor="None"
-                                        IsReadOnly="True" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox
+                                            x:Name="txtUserName"
+                                            Margin="0,0,10,10"
+                                            Cursor="None"
+                                            IsReadOnly="True"
+                                            Width="100"
+                                           
+                                            />
+                                        <DockPanel>
+                                            <TextBlock Text="Role: " FontSize="16" VerticalAlignment="Center" />
+                                            <TextBlock Text="{Binding roleAccount}" VerticalAlignment="Center" Margin="10 0 0 0" FontSize="16"/>
+                                        </DockPanel>
+                                    </StackPanel>
                                     <TextBox x:Name="txtFullName" Margin="0,0,0,10" />
                                     <TextBox x:Name="txtEmail" Margin="0,0,0,10" />
                                     <TextBox x:Name="txtPhoneNumber" Margin="0,0,0,10" />
@@ -808,7 +817,7 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="160" />
-                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="80" />
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="160" />
                                     </Grid.ColumnDefinitions>
@@ -823,6 +832,7 @@
 
                                     <!--  ID  -->
                                     <TextBlock
+                                        TextAlignment="Right"
                                         Grid.Row="0"
                                         Grid.Column="0"
                                         VerticalAlignment="Center"
@@ -836,6 +846,7 @@
 
                                     <!--  User Name  -->
                                     <TextBlock
+                                        TextAlignment="Right"
                                         Grid.Row="0"
                                         Grid.Column="3"
                                         VerticalAlignment="Center"
@@ -849,6 +860,7 @@
 
                                     <!--  Full Name  -->
                                     <TextBlock
+                                        TextAlignment="Right"
                                         Grid.Row="1"
                                         Grid.Column="0"
                                         VerticalAlignment="Center"
@@ -862,6 +874,7 @@
 
                                     <!--  Age  -->
                                     <TextBlock
+                                        TextAlignment="Right"
                                         Grid.Row="1"
                                         Grid.Column="3"
                                         VerticalAlignment="Center"
@@ -875,6 +888,7 @@
 
                                     <!--  Gender  -->
                                     <TextBlock
+                                        TextAlignment="Right"
                                         Grid.Row="2"
                                         Grid.Column="0"
                                         VerticalAlignment="Center"
@@ -888,6 +902,7 @@
 
                                     <!--  Address  -->
                                     <TextBlock
+                                        TextAlignment="Right"
                                         Grid.Row="2"
                                         Grid.Column="3"
                                         VerticalAlignment="Center"
@@ -901,6 +916,7 @@
 
                                     <!--  Phone Number  -->
                                     <TextBlock
+                                        TextAlignment="Right"
                                         Grid.Row="3"
                                         Grid.Column="0"
                                         VerticalAlignment="Center"
@@ -914,13 +930,15 @@
 
                                     <TextBlock
                                         Grid.Row="4"
+                                        TextAlignment="Right"
                                         Grid.Column="0"
                                         VerticalAlignment="Bottom"
+                                        Margin="0 0 10 0"
                                         Text="Role:" />
                                     <StackPanel
                                         Grid.Row="4"
                                         Grid.Column="1"
-                                        Margin="0,10,0,0"
+                                        Margin="0,0,10,0"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         Orientation="Horizontal">
@@ -940,6 +958,7 @@
                                     <!--  Email  -->
                                     <TextBlock
                                         Grid.Row="3"
+                                        TextAlignment="Right"
                                         Grid.Column="3"
                                         VerticalAlignment="Center"
                                         Text="Email:" />
@@ -951,6 +970,7 @@
                                         Text="{Binding Email, Mode=TwoWay}" />
 
                                     <TextBlock
+                                        TextAlignment="Right"
                                         Grid.Row="4"
                                         Grid.Column="3"
                                         VerticalAlignment="Center"
@@ -1182,7 +1202,6 @@
                                                 <TextBlock Text="{Binding Status}" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
-
                                     </DataGridTemplateColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
