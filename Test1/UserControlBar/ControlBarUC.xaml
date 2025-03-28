@@ -12,31 +12,23 @@
             <DockPanel>
 
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                    <Button
-                        x:Name="btnMinimize"
-                        Height="27"
-                        Background="{StaticResource MaterialDesignShadowBrush}"
-                        BorderBrush="Black"
-                        Click="btnMinimize_Click">
+                    <!--  Button Minimize  -->
+                    <Button Style="{StaticResource btnWindown}" x:Name="btnMinimize" Click="btnMinimize_Click">
                         <materialDesign:PackIcon Kind="Minus" />
+                       
                     </Button>
-                    <Button
-                        x:Name="btnZoomIn"
-                        Height="27"
-                        Background="{StaticResource MaterialDesignShadowBrush}"
-                        BorderBrush="Black"
-                        Click="btnZoomIn_Click">
+
+                    <!--  Button Zoom In  -->
+                    <Button Style="{StaticResource btnWindown}" x:Name="btnZoomIn" Click="btnZoomIn_Click">
                         <materialDesign:PackIcon Kind="WindowRestore" />
                     </Button>
-                    <Button
-                        x:Name="btnClose"
-                        Height="27"
-                        Background="{StaticResource MaterialDesignShadowBrush}"
-                        BorderBrush="Black"
-                        Click="btnClose_Click">
+
+                    <!--  Button Close  -->
+                    <Button Style="{StaticResource btnWindown}" x:Name="btnClose" Click="btnClose_Click">
                         <materialDesign:PackIcon Kind="Close" />
                     </Button>
                 </StackPanel>
+
             </DockPanel>
         </materialDesign:ColorZone>
     </Grid>

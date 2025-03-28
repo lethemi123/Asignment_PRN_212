@@ -42,15 +42,7 @@ namespace Test1
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-          if(txtUserName.Text == name && txtPassword.Password == password){
-                MainWindow mainWindow = new MainWindow();  
-                mainWindow.Show();
-                this.Close();
-            }
-            else
-            {
-               MessageBox.Show("Error Login","Login Failed",MessageBoxButton.OK,MessageBoxImage.Warning);
-            }
+          
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

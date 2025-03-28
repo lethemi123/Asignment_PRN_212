@@ -24,9 +24,9 @@
         <Grid Grid.Row="1">
             <materialDesign:Card>
                 <TabControl Style="{StaticResource MaterialDesignNavigationRailTabControl}" TabStripPlacement="left">
-                 
-                    
-                    
+
+
+
                     <!--  Cart Shopping  -->
                     <TabItem>
                         <TabItem.Header>
@@ -121,7 +121,7 @@
                                             Margin="5"
                                             HorizontalAlignment="Right"
                                             Background="Orange"
-                                            Content="View Order"
+                                            Content="View Cart"
                                             FontWeight="Bold"
                                             Foreground="White" />
 
@@ -133,7 +133,7 @@
                                             Margin="5"
                                             HorizontalAlignment="Left"
                                             Background="{StaticResource PrimaryHueMidBrush}"
-                                            Content="Order"
+                                            Content="Add To Cart"
                                             FontWeight="Bold"
                                             Foreground="White" />
                                     </Grid>
@@ -165,7 +165,7 @@
                                                 FontSize="16"
                                                 FontWeight="Bold"
                                                 Text="Name: " />
-                                            <TextBlock FontSize="16" Text="{Binding ProductName}" />
+                                            <TextBlock x:Name="tbxProductName"  FontSize="16" Text="{Binding ProductName}" />
                                         </StackPanel>
 
 
@@ -180,7 +180,7 @@
                                                 FontSize="16"
                                                 FontWeight="Bold"
                                                 Text="ID: " />
-                                            <TextBlock FontSize="16" Text="{Binding ProductId}" />
+                                            <TextBlock x:Name="tbxProductID"  FontSize="16" Text="{Binding ProductId}" />
                                         </StackPanel>
 
                                         <!--  Type  -->
@@ -193,7 +193,7 @@
                                                 FontSize="16"
                                                 FontWeight="Bold"
                                                 Text="Type: " />
-                                            <TextBlock FontSize="16" Text="{Binding ProductType}" />
+                                            <TextBlock x:Name="tbxProducType" FontSize="16" Text="{Binding ProductType}" />
                                         </StackPanel>
 
                                         <!--  Price  -->
@@ -206,7 +206,7 @@
                                                 FontSize="16"
                                                 FontWeight="Bold"
                                                 Text="Price: " />
-                                            <TextBlock FontSize="16" Text="{Binding ProductPrice}" />
+                                            <TextBlock x:Name="tbxProductPrice" FontSize="16" Text="{Binding ProductPrice}" Foreground="Green" />
                                         </StackPanel>
 
                                         <StackPanel
@@ -232,7 +232,9 @@
                                                     Margin="10,0,0,0"
                                                     HorizontalAlignment="Right"
                                                     VerticalAlignment="Center"
-                                                    Value="1" />
+                                                    Value="1"  
+                                                    x:Name="tbxProductStock"
+                                                    />
                                             </Grid>
                                             <!--  Description  -->
                                             <StackPanel
@@ -245,6 +247,7 @@
                                                     Text="Description: " />
                                                 <TextBlock
                                                     Height="30"
+                                                    x:Name="tbxProductDescription"
                                                     FontSize="16"
                                                     Text="{Binding ProductDescription}"
                                                     TextWrapping="Wrap" />
@@ -308,11 +311,12 @@
                                                     Height="290"
                                                     Margin="10"
                                                     Padding="10"
-                                                    Cursor="Hand"
                                                     Background="#333"
                                                     BorderBrush="Gray"
                                                     BorderThickness="1"
-                                                    CornerRadius="12">
+                                                    CornerRadius="12"
+                                                    MouseDown="Border_MouseDown"
+                                                    Cursor="Hand">
                                                     <StackPanel>
                                                         <!--  Ảnh sản phẩm  -->
                                                         <Image
@@ -326,6 +330,8 @@
                                                         <!--  Thông tin cơ bản của sản phẩm  -->
                                                         <StackPanel
                                                             Margin="0,5,0,0"
+                                 
+                                                            
                                                             HorizontalAlignment="Left"
                                                             VerticalAlignment="Top">
                                                             <TextBlock
@@ -385,7 +391,7 @@
                                     Height="30"
                                     HorizontalAlignment="Center"
                                     Kind="PackageVariantClosed" />
-                                <TextBlock HorizontalAlignment="Center" Text="Order" />
+                                <TextBlock HorizontalAlignment="Center" Text="Cart" />
                             </StackPanel>
                         </TabItem.Header>
                         <Grid>
@@ -556,7 +562,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="20" />
                                 <RowDefinition Height="0.5*" />
-                                <RowDefinition Height="*" />
+                                <RowDefinition Height="0.7*" />
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="20" />
                             </Grid.RowDefinitions>
@@ -572,6 +578,56 @@
                                 Background="Black"
                                 BorderBrush="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}"
                                 Opacity="0.2" />
+                            <StackPanel
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Orientation="Horizontal">
+                                <Border
+                                    Width="200"
+                                    Padding="10"
+                                    Background="#FFCCF3FC"
+                                    CornerRadius="10">
+                                    <StackPanel>
+                                        <TextBlock
+                                            Padding="5"
+                                            HorizontalAlignment="Left"
+                                            FontSize="18"
+                                            FontWeight="Bold"
+                                            Foreground="#FFAA7BB1"
+                                            Text="Your Wallet" />
+
+                                        <StackPanel
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Orientation="Horizontal">
+                                            <TextBlock
+                                                x:Name="txtxxx"
+                                                Width="100"
+                                                Margin="0,0,15,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="16"
+                                                FontWeight="Bold"
+                                                Foreground="#FF0FBB3F"
+                                                Text="6666$"
+                                                TextAlignment="Left" />
+
+                                            <Button
+                                                x:Name="btnNaptien"
+                                                HorizontalAlignment="Right"
+                                                Background="#FFAA7BB1"
+                                                Click="btnNaptien_Click"
+                                                Foreground="White">
+                                                <materialDesign:PackIcon
+                                                    Width="24"
+                                                    Height="24"
+                                                    Kind="CashPlus" />
+                                            </Button>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+
+
                             <StackPanel
                                 Grid.Row="1"
                                 Grid.Column="1"
@@ -709,7 +765,6 @@
                                         <RadioButton
                                             x:Name="rdoMale"
                                             Margin="0,0,20,0"
-                                            
                                             Content="Male"
                                             GroupName="Gender" />
                                         <RadioButton
