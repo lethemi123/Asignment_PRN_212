@@ -13,6 +13,8 @@ public partial class Person
 
     public string? Fname { get; set; }
 
+    public string FullName => $"{Fname} {Lname}";
+
     public string? Lname { get; set; }
 
     public string? Gender { get; set; }

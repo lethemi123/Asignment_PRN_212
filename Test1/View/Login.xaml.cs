@@ -11,16 +11,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Test1.Manage;
+using Test1.Models;
 
 namespace Test1
 {
+
     /// <summary>
     /// Interaction logic for Login.xaml
     /// </summary>
     public partial class Login : Window
     {
-        public string name = "lethemi";
-        public string password = "123";
+        Prn212AsignmentContext context = new Prn212AsignmentContext();
+       
         public Login()
         {
             InitializeComponent();
@@ -42,8 +45,34 @@ namespace Test1
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-          
+            string username = txtUserName.Text;
+            string password = txtPassword.Password;
+
+            var user = context.People.FirstOrDefault(u => u.UserName == username && u.Password == password);
+
+            if (user != null) {
+                if (user.RoleAccount == true)
+                {
+                    Admin admin = new Admin();
+                    admin.Show();
+                    this.Close();
+                }
+                else
+                {
+                    Customer customer = new Customer();
+                    customer.Show();
+                    this.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Wrong", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
+
+            
+
+        
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {

@@ -5,6 +5,8 @@ namespace Test1.Models;
 
 public partial class Product
 {
+
+    public string? IsSelected { get; set; }
     public string ProductId { get; set; } = null!;
 
     public string ProductName { get; set; } = null!;

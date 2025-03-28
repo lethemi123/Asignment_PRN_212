@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Test1.Models;
 
 namespace Test1
 {
@@ -19,6 +20,9 @@ namespace Test1
     /// </summary>
     public partial class ForgotPassword : Window
     {
+        Prn212AsignmentContext context = new Prn212AsignmentContext();
+
+
         public ForgotPassword()
         {
             InitializeComponent();
@@ -41,6 +45,22 @@ namespace Test1
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 this.DragMove();
+            }
+        }
+
+        private void btnCheckEmal_Click(object sender, RoutedEventArgs e)
+        {
+            string email = txtEmail.Text.Trim();
+            var user = context.People.FirstOrDefault(x => x.Email == email);
+            if (user != null)
+            {
+                CurrentPassword currentPW = new CurrentPassword();
+                currentPW.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Email not exits in database. Please try again!","Error",MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

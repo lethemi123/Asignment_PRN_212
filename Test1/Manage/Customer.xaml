@@ -129,7 +129,7 @@
                                         <Button
                                             x:Name="btnClear"
                                             Grid.Column="1"
-                                            Width="100"
+                                       
                                             Margin="5"
                                             HorizontalAlignment="Left"
                                             Background="{StaticResource PrimaryHueMidBrush}"
