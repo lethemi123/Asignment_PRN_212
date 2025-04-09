@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using Test1.Models;
 namespace Test1
 {
     /// <summary>
@@ -20,6 +20,8 @@ namespace Test1
     /// </summary>
     public partial class CurrentPassword : Window
     {
+
+        Prn212AsignmentContext context = new Prn212AsignmentContext();
         public CurrentPassword()
         {
             InitializeComponent();
@@ -46,7 +48,9 @@ namespace Test1
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+           
             
+           
         }
 
         private void PasswordBox_PasswordChanged_confirm(object sender, RoutedEventArgs e)

@@ -23,7 +23,6 @@ namespace Test1
     public partial class Login : Window
     {
         Prn212AsignmentContext context = new Prn212AsignmentContext();
-       
         public Login()
         {
             InitializeComponent();
@@ -50,16 +49,17 @@ namespace Test1
 
             var user = context.People.FirstOrDefault(u => u.UserName == username && u.Password == password);
 
-            if (user != null) {
+            if (user != null)
+            {
                 if (user.RoleAccount == true)
                 {
-                    Admin admin = new Admin();
+                    Admin admin = new Admin(user);
                     admin.Show();
                     this.Close();
                 }
                 else
                 {
-                    Customer customer = new Customer();
+                    Customer customer = new Customer(user);
                     customer.Show();
                     this.Close();
                 }

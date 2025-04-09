@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Customer"
     Width="1000"
-    Height="450"
+    Height="521"
     MouseDown="Window_MouseDown"
     ResizeMode="NoResize"
     WindowStyle="None"
@@ -80,17 +80,18 @@
                             </StackPanel>
                             <StackPanel
                                 Grid.Column="1"
-                                Margin="0,0,10,0"
+                                Margin="0,0,20,0"
                                 VerticalAlignment="Center">
                                 <ComboBox
                                     x:Name="FilledComboBox"
+                                    ItemsSource="{Binding ListCategory}"
+                                    SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
                                     materialDesign:HintAssist.Hint="Type"
+                                    DisplayMemberPath="Name"
                                     IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
-                                    Style="{StaticResource MaterialDesignFilledComboBox}">
-                                    <ComboBoxItem Content="Item 1" />
-                                    <ComboBoxItem Content="Item 2" />
-                                    <ComboBoxItem Content="Item 3" />
-                                </ComboBox>
+                                    Style="{StaticResource MaterialDesignFilledComboBox}"/>
+
+
                             </StackPanel>
 
                             <!--  bill order of customer  -->
@@ -129,7 +130,6 @@
                                         <Button
                                             x:Name="btnClear"
                                             Grid.Column="1"
-                                       
                                             Margin="5"
                                             HorizontalAlignment="Left"
                                             Background="{StaticResource PrimaryHueMidBrush}"
@@ -154,6 +154,7 @@
                                             <RowDefinition Height="auto" />
                                             <RowDefinition Height="auto" />
                                             <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
                                         </Grid.RowDefinitions>
 
                                         <!--  Product Name  -->
@@ -165,7 +166,10 @@
                                                 FontSize="16"
                                                 FontWeight="Bold"
                                                 Text="Name: " />
-                                            <TextBlock x:Name="tbxProductName"  FontSize="16" Text="{Binding ProductName}" />
+                                            <TextBlock
+                                                x:Name="tbxProductName"
+                                                FontSize="16"
+                                                Text="{Binding ProductName}" />
                                         </StackPanel>
 
 
@@ -180,7 +184,10 @@
                                                 FontSize="16"
                                                 FontWeight="Bold"
                                                 Text="ID: " />
-                                            <TextBlock x:Name="tbxProductID"  FontSize="16" Text="{Binding ProductId}" />
+                                            <TextBlock
+                                                x:Name="tbxProductID"
+                                                FontSize="16"
+                                                Text="{Binding ProductId}" />
                                         </StackPanel>
 
                                         <!--  Type  -->
@@ -193,7 +200,10 @@
                                                 FontSize="16"
                                                 FontWeight="Bold"
                                                 Text="Type: " />
-                                            <TextBlock x:Name="tbxProducType" FontSize="16" Text="{Binding ProductType}" />
+                                            <TextBlock
+                                                x:Name="tbxProducType"
+                                                FontSize="16"
+                                                Text="{Binding ProductType}" />
                                         </StackPanel>
 
                                         <!--  Price  -->
@@ -206,81 +216,85 @@
                                                 FontSize="16"
                                                 FontWeight="Bold"
                                                 Text="Price: " />
-                                            <TextBlock x:Name="tbxProductPrice" FontSize="16" Text="{Binding ProductPrice}" Foreground="Green" />
+                                            <TextBlock
+                                                x:Name="tbxProductPrice"
+                                                FontSize="16"
+                                                Foreground="Green"
+                                                Text="{Binding ProductPrice}" />
                                         </StackPanel>
+
 
                                         <StackPanel
                                             Grid.Row="3"
                                             Grid.Column="0"
                                             Grid.ColumnSpan="2"
                                             Orientation="Vertical">
-                                            <!--  Quantity with NumericUpDown  -->
-                                            <Grid
-                                                Grid.Row="2"
-                                                Grid.Column="1"
-                                                Margin="0,10,0,0">
-
+                                            <StackPanel Grid.Column="1" Orientation="Horizontal">
                                                 <TextBlock
-                                                    Grid.Column="0"
                                                     VerticalAlignment="Center"
                                                     FontSize="16"
                                                     FontWeight="Bold"
-                                                    Text="Quantity: " />
-
-                                                <materialDesign:NumericUpDown
-                                                    Width="150"
-                                                    Margin="10,0,0,0"
-                                                    HorizontalAlignment="Right"
-                                                    VerticalAlignment="Center"
-                                                    Value="1"  
-                                                    x:Name="tbxProductStock"
-                                                    />
-                                            </Grid>
-                                            <!--  Description  -->
-                                            <StackPanel
-                                                Grid.Column="1"
-                                                Margin="0,15"
-                                                Orientation="Horizontal">
+                                                    Text="Variants: " />
                                                 <TextBlock
-                                                    FontSize="16"
-                                                    FontWeight="Bold"
-                                                    Text="Description: " />
-                                                <TextBlock
-                                                    Height="30"
                                                     x:Name="tbxProductDescription"
+                                                    Height="30"
                                                     FontSize="16"
-                                                    Text="{Binding ProductDescription}"
+                                                    Text="{Binding Variant}"
                                                     TextWrapping="Wrap" />
                                             </StackPanel>
+
+                                            <!--  Description  -->
+
                                             <Border
                                                 Width="300"
                                                 Height="1"
+                                                Margin="0,20,0,0"
                                                 Background="{StaticResource ColorGrayBoder}"
                                                 Opacity="2" />
                                         </StackPanel>
+                                        <!--  Quantity with NumericUpDown  -->
+                                        <Grid
+                                            Grid.Row="2"
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="2">
+
+                                            <TextBlock
+                                                Grid.Column="0"
+                                                VerticalAlignment="Center"
+                                                FontSize="16"
+                                                FontWeight="Bold"
+                                                Text="Quantity: " />
+
+                                            <materialDesign:NumericUpDown
+                                                x:Name="tbxProductStock"
+                                                Margin="10"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
+                                                Maximum="999"
+                                                Minimum="0"
+                                                Value="1" />
+                                        </Grid>
 
 
                                     </Grid>
-                                    <Grid VerticalAlignment="Bottom">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.3*" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Vertical">
                                         <TextBlock
                                             Grid.Column="0"
-                                            HorizontalAlignment="Center"
+                                            Margin="10,0,0,0"
+                                            HorizontalAlignment="Left"
                                             FontSize="20"
                                             FontWeight="Bold"
                                             Text="Total" />
                                         <TextBlock
                                             Grid.Column="1"
-                                            HorizontalAlignment="Center"
+                                            HorizontalAlignment="left"
                                             FontSize="20"
                                             FontWeight="Bold"
                                             Foreground="Green"
                                             Text="{Binding totalProducts}" />
 
-                                    </Grid>
+                                    </StackPanel>
                                 </StackPanel>
                             </Border>
 
@@ -308,30 +322,27 @@
                                             <DataTemplate>
                                                 <Border
                                                     Width="220"
-                                                    Height="290"
                                                     Margin="10"
                                                     Padding="10"
                                                     Background="#333"
                                                     BorderBrush="Gray"
                                                     BorderThickness="1"
                                                     CornerRadius="12"
-                                                    MouseDown="Border_MouseDown"
-                                                    Cursor="Hand">
+                                                    Cursor="Hand"
+                                                    MouseDown="Border_MouseDown">
                                                     <StackPanel>
                                                         <!--  Ảnh sản phẩm  -->
                                                         <Image
-                                                            Height="120"
+                                                            Width="auto"
                                                             Margin="0,0,0,10"
                                                             HorizontalAlignment="Center"
                                                             VerticalAlignment="Center"
-                                                            Source="{Binding ImangePathProduct}"
+                                                            Source="{Binding ImagePathProduct}"
                                                             Stretch="UniformToFill" />
 
                                                         <!--  Thông tin cơ bản của sản phẩm  -->
                                                         <StackPanel
                                                             Margin="0,5,0,0"
-                                 
-                                                            
                                                             HorizontalAlignment="Left"
                                                             VerticalAlignment="Top">
                                                             <TextBlock
@@ -343,6 +354,7 @@
                                                             <TextBlock
                                                                 Margin="0,5,0,5"
                                                                 FontSize="14"
+                                                                TextWrapping="Wrap"
                                                                 Foreground="#D3D3D3"
                                                                 Text="{Binding ProductDescription}" />
 
@@ -359,7 +371,7 @@
                                                                 FontSize="14"
                                                                 Foreground="White">
                                                                 <Run FontWeight="Bold" Text="Type: " />
-                                                                <Run Text="{Binding CateGoryID}" />
+                                                                <Run Text="{Binding Category.CategoryName}" />
                                                             </TextBlock>
 
                                                             <TextBlock
@@ -480,6 +492,7 @@
                                             Width="120"
                                             Margin="0,0,20,0"
                                             FontSize="20"
+                                            FontWeight="Bold"
                                             Text="Total: "
                                             TextAlignment="Right" />
                                         <TextBlock
@@ -496,6 +509,7 @@
                                             Width="120"
                                             Margin="0,0,20,0"
                                             FontSize="20"
+                                            FontWeight="Bold"
                                             Text="Quantity:"
                                             TextAlignment="Right" />
                                         <TextBlock
@@ -600,15 +614,24 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Orientation="Horizontal">
+
                                             <TextBlock
-                                                x:Name="txtxxx"
-                                                Width="100"
+                                              
+                                                VerticalAlignment="Center"
+                                                FontSize="16"
+                                                FontWeight="Bold"
+                                                Text="$"
+                                                Foreground="#FF0FBB3F" />
+
+                                            <TextBlock
+                                                x:Name="txtTotalMoneyUser"
+                                               
                                                 Margin="0,0,15,0"
+                                                HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 FontSize="16"
                                                 FontWeight="Bold"
                                                 Foreground="#FF0FBB3F"
-                                                Text="6666$"
                                                 TextAlignment="Left" />
 
                                             <Button
@@ -661,8 +684,7 @@
                                     x:Name="ProfileImage"
                                     Width="100"
                                     Height="100"
-                                    Margin="0,30,0,30"
-                                    Source="{Binding pathImagePerson}">
+                                    Margin="0,30,0,30">
                                     <Image.Clip>
                                         <EllipseGeometry
                                             Center="50,50"
@@ -740,17 +762,18 @@
                                             x:Name="txtUserName"
                                             Width="100"
                                             Margin="0,0,10,10"
-                                            Cursor="None"
                                             IsReadOnly="True" />
-                                        <DockPanel>
+                                        <DockPanel VerticalAlignment="Center">
                                             <TextBlock
                                                 VerticalAlignment="Center"
                                                 FontSize="16"
                                                 Text="Role: " />
                                             <TextBlock
-                                                Margin="10,0,0,0"
+                                                x:Name="txtRoleAccount"
+                                                Margin="20,0,0,0"
                                                 VerticalAlignment="Center"
                                                 FontSize="16"
+                                                FontWeight="Bold"
                                                 Text="{Binding roleAccount}" />
                                         </DockPanel>
                                     </StackPanel>
@@ -777,7 +800,10 @@
                                             Content="Other"
                                             GroupName="Gender" />
                                     </StackPanel>
-                                    <DatePicker materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                                    <DatePicker
+                                        x:Name="dpBirthday"
+                                        materialDesign:TextFieldAssist.HasClearButton="True"
+                                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                                 </StackPanel>
                                 <Button
                                     x:Name="btnSaveProFile"
@@ -786,6 +812,7 @@
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Bottom"
                                     Background="{StaticResource ColorSave}"
+                                    Click="btnSaveProFile_Click"
                                     Content="Save" />
                             </Grid>
                         </Grid>

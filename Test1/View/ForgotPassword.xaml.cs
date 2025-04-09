@@ -20,8 +20,8 @@ namespace Test1
     /// </summary>
     public partial class ForgotPassword : Window
     {
-        Prn212AsignmentContext context = new Prn212AsignmentContext();
 
+        Prn212AsignmentContext context = new Prn212AsignmentContext();
 
         public ForgotPassword()
         {
@@ -60,7 +60,7 @@ namespace Test1
             }
             else
             {
-                MessageBox.Show("Email not exits in database. Please try again!","Error",MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Email not exits in database. Please try again!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

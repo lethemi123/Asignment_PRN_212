@@ -5,15 +5,14 @@ namespace Test1.Models;
 
 public partial class Person
 {
-    public string Id { get; set; } = null!;
+    public string Id { get; set; }
 
-    public string UserName { get; set; } = null!;
+    public string? UserName { get; set; }
 
-    public string Password { get; set; } = null!;
+    public string? Password { get; set; }
+    
 
     public string? Fname { get; set; }
-
-    public string FullName => $"{Fname} {Lname}";
 
     public string? Lname { get; set; }
 

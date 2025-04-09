@@ -61,7 +61,7 @@
             materialDesign:HintAssist.Background="White"
             materialDesign:HintAssist.Hint="Enter Name"
             materialDesign:HintAssist.HintPaddingBrush="White"
-            BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}"
+            
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             TextWrapping="Wrap"
             VerticalScrollBarVisibility="Auto" />
@@ -84,7 +84,7 @@
                 materialDesign:HintAssist.Hint="Password"
                 materialDesign:HintAssist.HintPaddingBrush="White"
                 materialDesign:TextFieldAssist.HasClearButton="True"
-                BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}"
+        
                 Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" />
         </StackPanel>
         <TextBlock

@@ -27,6 +27,8 @@ public partial class Prn212AsignmentContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
+    public virtual DbSet<ProductVariant> ProductVariants { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=LYM;Database=Prn212_Asignment;User Id=sa;Password=123;Encrypt=False;TrustServerCertificate=True");
@@ -38,6 +40,8 @@ public partial class Prn212AsignmentContext : DbContext
             entity.HasKey(e => e.CartId).HasName("PK__Cart__51BCD7B7B9064534");
 
             entity.ToTable("Cart");
+
+            entity.HasIndex(e => new { e.PersonId, e.ProductId }, "UQ_Cart_Product_Person").IsUnique();
 
             entity.Property(e => e.CartId)
                 .HasMaxLength(50)
@@ -197,6 +201,25 @@ public partial class Prn212AsignmentContext : DbContext
             entity.HasOne(d => d.Category).WithMany(p => p.Products)
                 .HasForeignKey(d => d.CategoryId)
                 .HasConstraintName("FK_Product_Category");
+        });
+
+        modelBuilder.Entity<ProductVariant>(entity =>
+        {
+            entity.HasKey(e => e.VariantId).HasName("PK__ProductV__0EA233E4863C4C50");
+
+            entity.Property(e => e.VariantId).HasColumnName("VariantID");
+            entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
+            entity.Property(e => e.ProductId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("ProductID");
+            entity.Property(e => e.Storage)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.Product).WithMany(p => p.ProductVariants)
+                .HasForeignKey(d => d.ProductId)
+                .HasConstraintName("FK__ProductVa__Produ__18EBB532");
         });
 
         OnModelCreatingPartial(modelBuilder);

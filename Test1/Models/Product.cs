@@ -5,19 +5,13 @@ namespace Test1.Models;
 
 public partial class Product
 {
-
-    public string? IsSelected { get; set; }
     public string ProductId { get; set; } = null!;
 
     public string ProductName { get; set; } = null!;
 
-    public double ProductPrice { get; set; }
-
     public string? ProductDescription { get; set; }
 
     public string? ImagePathProduct { get; set; }
-
-    public int? Stock { get; set; }
 
     public string? CategoryId { get; set; }
 
@@ -30,4 +24,6 @@ public partial class Product
     public virtual Category? Category { get; set; }
 
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
+
+    public virtual ICollection<ProductVariant> ProductVariants { get; set; } = new List<ProductVariant>();
 }

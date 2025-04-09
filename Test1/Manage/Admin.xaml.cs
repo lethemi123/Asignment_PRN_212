@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using Test1.Models;
 
 namespace Test1.Manage
 {
@@ -20,10 +20,10 @@ namespace Test1.Manage
     /// Interaction logic for Admin.xaml
     /// </summary>
     public partial class Admin : Window
-    {      
-       
-
-        public Admin()
+    {
+        private Person currentUser;
+        private readonly Prn212AsignmentContext context;
+        public Admin(Person user)
         {
             InitializeComponent();
             Window window = Window.GetWindow(this);
