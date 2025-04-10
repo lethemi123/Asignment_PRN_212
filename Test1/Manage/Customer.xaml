@@ -68,13 +68,15 @@
                                 Orientation="Horizontal">
 
                                 <TextBox
+                                    x:Name="txtFillterByName"
                                     Width="200"
                                     Height="40"
                                     Padding="20,0,0,0"
                                     HorizontalAlignment="Left"
                                     materialDesign:HintAssist.Hint="Search by Name"
                                     BorderBrush="{StaticResource ColorGrayBoder}"
-                                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                    TextChanged="TextBox_TextChanged" />
 
 
                             </StackPanel>
@@ -84,12 +86,13 @@
                                 VerticalAlignment="Center">
                                 <ComboBox
                                     x:Name="FilledComboBox"
-                                    ItemsSource="{Binding ListCategory}"
-                                    SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
                                     materialDesign:HintAssist.Hint="Type"
-                                    DisplayMemberPath="Name"
+                                    DisplayMemberPath="CategoryName"
                                     IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
-                                    Style="{StaticResource MaterialDesignFilledComboBox}"/>
+                                    ItemsSource="{Binding ListCategory}"
+                                    SelectedItem="{Binding SelectedCategory}"
+                                    SelectionChanged="FilledComboBox_SelectionChanged"
+                                    Style="{StaticResource MaterialDesignFilledComboBox}" />
 
 
                             </StackPanel>
@@ -106,7 +109,7 @@
                                 BorderThickness="1"
                                 CornerRadius="10">
 
-                                <StackPanel>
+                                <StackPanel x:Name="productDetailPanel">
                                     <!--  Ảnh sản phẩm ở trên cùng  -->
                                     <Grid Margin="0,0,0,0" VerticalAlignment="Top">
                                         <Grid.ColumnDefinitions>
@@ -138,6 +141,7 @@
                                             Foreground="White" />
                                     </Grid>
                                     <Image
+                                        x:Name="ImangePathProduct"
                                         Width="100"
                                         Height="100"
                                         Margin="0,20,0,0"
@@ -151,6 +155,7 @@
                                             <ColumnDefinition Width="0.5*" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
                                             <RowDefinition Height="auto" />
                                             <RowDefinition Height="auto" />
                                             <RowDefinition Height="auto" />
@@ -176,9 +181,9 @@
 
                                         <!--  Product ID  -->
                                         <StackPanel
-                                            Grid.Row="0"
-                                            Grid.Column="1"
-                                            VerticalAlignment="Center"
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            VerticalAlignment="Bottom"
                                             Orientation="Horizontal">
                                             <TextBlock
                                                 FontSize="16"
@@ -208,8 +213,9 @@
 
                                         <!--  Price  -->
                                         <StackPanel
-                                            Grid.Row="1"
+                                            Grid.Row="4"
                                             Grid.Column="0"
+                                            Grid.ColumnSpan="2"
                                             Margin="0,10,0,0"
                                             Orientation="Horizontal">
                                             <TextBlock
@@ -221,6 +227,7 @@
                                                 FontSize="16"
                                                 Foreground="Green"
                                                 Text="{Binding ProductPrice}" />
+
                                         </StackPanel>
 
 
@@ -245,12 +252,7 @@
 
                                             <!--  Description  -->
 
-                                            <Border
-                                                Width="300"
-                                                Height="1"
-                                                Margin="0,20,0,0"
-                                                Background="{StaticResource ColorGrayBoder}"
-                                                Opacity="2" />
+
                                         </StackPanel>
                                         <!--  Quantity with NumericUpDown  -->
                                         <Grid
@@ -278,7 +280,14 @@
 
 
                                     </Grid>
-                                    <StackPanel Orientation="Vertical">
+                                    <Border
+                                        Width="300"
+                                        Height="1"
+                                        Margin="0,20,0,0"
+                                        Background="{StaticResource ColorGrayBoder}"
+                                        Opacity="2" />
+                                    <StackPanel Margin="0,20,0,0" Orientation="Vertical">
+
                                         <TextBlock
                                             Grid.Column="0"
                                             Margin="10,0,0,0"
@@ -324,8 +333,7 @@
                                                     Width="220"
                                                     Margin="10"
                                                     Padding="10"
-                                                    Background="#333"
-                                                    BorderBrush="Gray"
+                                                    Background="#F1F1F1"
                                                     BorderThickness="1"
                                                     CornerRadius="12"
                                                     Cursor="Hand"
@@ -348,28 +356,20 @@
                                                             <TextBlock
                                                                 FontSize="18"
                                                                 FontWeight="Bold"
-                                                                Foreground="White"
                                                                 Text="{Binding ProductName}" />
 
                                                             <TextBlock
                                                                 Margin="0,5,0,5"
                                                                 FontSize="14"
-                                                                TextWrapping="Wrap"
-                                                                Foreground="#D3D3D3"
-                                                                Text="{Binding ProductDescription}" />
+                                                                Text="{Binding ProductDescription}"
+                                                                TextWrapping="Wrap" />
 
-                                                            <TextBlock
-                                                                Margin="0,5,0,0"
-                                                                FontSize="14"
-                                                                Foreground="White">
+                                                            <TextBlock Margin="0,5,0,0" FontSize="14">
                                                                 <Run FontWeight="Bold" Text="ID: " />
                                                                 <Run Text="{Binding ProductId}" />
                                                             </TextBlock>
 
-                                                            <TextBlock
-                                                                Margin="0,5,0,0"
-                                                                FontSize="14"
-                                                                Foreground="White">
+                                                            <TextBlock Margin="0,5,0,0" FontSize="14">
                                                                 <Run FontWeight="Bold" Text="Type: " />
                                                                 <Run Text="{Binding Category.CategoryName}" />
                                                             </TextBlock>
@@ -377,10 +377,8 @@
                                                             <TextBlock
                                                                 Margin="0,5,0,0"
                                                                 FontSize="16"
-                                                                FontWeight="Bold"
-                                                                Foreground="White">
+                                                                FontWeight="Bold">
                                                                 <Run Text="Price: " />
-                                                                <Run Foreground="#FFA500" Text="{Binding Price}" />
                                                             </TextBlock>
                                                         </StackPanel>
                                                     </StackPanel>
@@ -616,16 +614,14 @@
                                             Orientation="Horizontal">
 
                                             <TextBlock
-                                              
                                                 VerticalAlignment="Center"
                                                 FontSize="16"
                                                 FontWeight="Bold"
-                                                Text="$"
-                                                Foreground="#FF0FBB3F" />
+                                                Foreground="#FF0FBB3F"
+                                                Text="$" />
 
                                             <TextBlock
                                                 x:Name="txtTotalMoneyUser"
-                                               
                                                 Margin="0,0,15,0"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"

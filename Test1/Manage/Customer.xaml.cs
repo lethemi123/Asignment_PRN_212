@@ -27,6 +27,8 @@ namespace Test1.Manage
 
     public partial class Customer : Window
     {
+        public List<Product> AllProducts { get; set; } = new List<Product>();
+        private Product selectProduct;
         public ObservableCollection<Product> ListProducts { get; set; }
         private Person currentUser;
         public ObservableCollection<Category> ListCategory { get; set; }
@@ -36,6 +38,7 @@ namespace Test1.Manage
         {
             InitializeComponent();
             context = new Prn212AsignmentContext();
+           
 
             currentUser = user;
             // Gán dữ liệu từ user vào UI
@@ -69,6 +72,7 @@ namespace Test1.Manage
                 ProfileImage.Source = new BitmapImage(new Uri(user.PathImagePerson));
             }
             LoadProduct();
+            LoadCateGrories();
             this.DataContext = this;
         }
 
@@ -82,10 +86,6 @@ namespace Test1.Manage
         private void LoadCateGrories()
         {
             ListCategory = new ObservableCollection<Category>(context.Categories.ToList());
-            foreach (var cate in ListCategory)
-            {
-                Console.WriteLine($"Loaded: {cate.CategoryName}");
-            }
         }
 
       
@@ -129,7 +129,17 @@ namespace Test1.Manage
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         { 
-        
+              var border = sender as Border;
+            
+            selectProduct = border.DataContext as Product;
+            if(selectProduct != null)
+            {
+                tbxProductName.Text = selectProduct.ProductName;
+                tbxProductID.Text = selectProduct.ProductId;
+                tbxProductDescription.Text = selectProduct.ProductDescription;
+                ImangePathProduct.Source = new BitmapImage(new Uri(selectProduct.ImagePathProduct));
+                productDetailPanel.Visibility = Visibility.Visible;
+            }
         
         
         }
@@ -155,6 +165,37 @@ namespace Test1.Manage
                 context.People.Update(currentUser);
                 context.SaveChanges();
                 MessageBox.Show("Information saved!", "Notification", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void FilledComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectCategory = FilledComboBox.SelectedItem as Category;
+            if (selectCategory != null)
+            {
+                using (var contexxt = new Prn212AsignmentContext())
+                {
+                    var products = contexxt.Products
+                                            .Where(p => p.CategoryId.Contains(selectCategory.CategoryId)).ToList();
+                    ListProducts.Clear();
+                    foreach (var product in products)
+                    {
+                        ListProducts.Add(product);
+                    }
+                }
+            }
+        }
+
+       
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+           string fillterByName = txtFillterByName.Text.ToLower();
+            var filter = AllProducts.Where(p => p.ProductName != null && p.ProductName.ToLower().Contains(fillterByName)).ToList();
+            ListProducts.Clear();
+            foreach(var product in filter)
+            {
+                ListProducts.Add(product);
             }
         }
     }
