@@ -1,0 +1,86 @@
+﻿<Application
+    x:Class="Test1.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Test1.UserControlBar;assembly=Test1"
+    StartupUri="View/Login.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Secondary/MaterialDesignColor.Lime.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Purple.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="CenteredTextStyle" TargetType="TextBlock">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <SolidColorBrush x:Key="ColorGrayBoder" Color="#808080" />
+            <SolidColorBrush x:Key="ColorDark" Color="Black"/>
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#FF6200EE" />
+            <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#FF03DAC5" />
+            <SolidColorBrush x:Key="ColorRedsolid" Color="Red" />
+            <SolidColorBrush x:Key="ColorSave" Color="#ee4d2d" />
+            <SolidColorBrush x:Key="ColorSubmit" Color="DodgerBlue" />
+            <Style
+                x:Key="HelperTextStyleOverride"
+                BasedOn="{StaticResource MaterialDesignHelperTextBlock}"
+                TargetType="TextBlock">
+                <Setter Property="Foreground" Value="Red" />
+                <Setter Property="FontSize" Value="12" />
+            </Style>
+            <Style
+                x:Key="HelperTextStyleMatch"
+                BasedOn="{StaticResource MaterialDesignHelperTextBlock}"
+                TargetType="TextBlock">
+                <Setter Property="FontSize" Value="12" />
+            </Style>
+            <Style x:Key="btnWindown" TargetType="Button">
+                <Setter Property="Margin" Value="0 5 0 5"/>
+                <Setter Property="Padding" Value="5"/>
+               <Setter Property="Background" Value="Black"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Height" Value="27"/>
+                <Setter Property="Width" Value="40"/>
+            </Style>
+            
+
+
+
+
+
+            <Style
+                x:Key="CustomRadioButtonStyle"
+                BasedOn="{StaticResource MaterialDesignRadioButton}"
+                TargetType="RadioButton">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="RadioButton">
+                            <Border
+                                x:Name="Border"
+                                Padding="5"
+                                BorderBrush="Transparent"
+                                BorderThickness="2"
+                                CornerRadius="5">
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse
+                                        Width="16"
+                                        Height="16"
+                                        Fill="Transparent"
+                                        Stroke="Gray"
+                                        StrokeThickness="2" />
+                                    <ContentPresenter Margin="8,0,0,0" />
+                                </StackPanel>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="FilledComboBoxEnabledCheckBox" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
