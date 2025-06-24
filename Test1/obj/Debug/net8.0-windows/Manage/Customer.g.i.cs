@@ -320,7 +320,7 @@ namespace Test1.Manage {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Test1;component/manage/customer.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Test1;V1.0.0.0;component/manage/customer.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Manage\Customer.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
