@@ -13,18 +13,27 @@
 
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                     <!--  Button Minimize  -->
-                    <Button Style="{StaticResource btnWindown}" x:Name="btnMinimize" Click="btnMinimize_Click">
+                    <Button
+                        x:Name="btnMinimize"
+                        Click="btnMinimize_Click"
+                        Style="{StaticResource btnWindown}">
                         <materialDesign:PackIcon Kind="Minus" />
-                       
+
                     </Button>
 
                     <!--  Button Zoom In  -->
-                    <Button Style="{StaticResource btnWindown}" x:Name="btnZoomIn" Click="btnZoomIn_Click">
+                    <Button
+                        x:Name="btnZoomIn"
+                        Click="btnZoomIn_Click"
+                        Style="{StaticResource btnWindown}">
                         <materialDesign:PackIcon Kind="WindowRestore" />
                     </Button>
 
                     <!--  Button Close  -->
-                    <Button Style="{StaticResource btnWindown}" x:Name="btnClose" Click="btnClose_Click">
+                    <Button
+                        x:Name="btnClose"
+                        Click="btnClose_Click"
+                        Style="{StaticResource btnWindown}">
                         <materialDesign:PackIcon Kind="Close" />
                     </Button>
                 </StackPanel>

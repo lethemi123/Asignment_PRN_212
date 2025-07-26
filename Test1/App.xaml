@@ -19,7 +19,7 @@
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
             <SolidColorBrush x:Key="ColorGrayBoder" Color="#808080" />
-            <SolidColorBrush x:Key="ColorDark" Color="Black"/>
+            <SolidColorBrush x:Key="ColorDark" Color="Black" />
             <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#FF6200EE" />
             <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#FF03DAC5" />
             <SolidColorBrush x:Key="ColorRedsolid" Color="Red" />
@@ -39,15 +39,15 @@
                 <Setter Property="FontSize" Value="12" />
             </Style>
             <Style x:Key="btnWindown" TargetType="Button">
-                <Setter Property="Margin" Value="0 5 0 5"/>
-                <Setter Property="Padding" Value="5"/>
-               <Setter Property="Background" Value="Black"/>
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="Foreground" Value="White"/>
-                <Setter Property="Height" Value="27"/>
-                <Setter Property="Width" Value="40"/>
+                <Setter Property="Margin" Value="0,5,0,5" />
+                <Setter Property="Padding" Value="5" />
+                <Setter Property="Background" Value="Black" />
+                <Setter Property="BorderBrush" Value="Black" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="Height" Value="27" />
+                <Setter Property="Width" Value="40" />
             </Style>
-            
+
 
 
 

@@ -101,10 +101,13 @@
                                             Text="Total Persons"
                                             TextAlignment="Center" />
                                         <TextBlock
+                                            Margin="0,20,0,0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
                                             FontSize="18"
                                             FontWeight="Bold"
                                             Foreground="{StaticResource MaterialDesign.Brush.Primary.Dark}"
-                                            Text="{Binding totalPersons}" />
+                                            Text="{Binding TotalPersons}" />
                                     </StackPanel>
                                 </Border>
                                 <Border
@@ -120,10 +123,13 @@
                                             Text="Total Order"
                                             TextAlignment="Center" />
                                         <TextBlock
+                                            Margin="0,20,0,0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
                                             FontSize="18"
                                             FontWeight="Bold"
                                             Foreground="{StaticResource ColorRedsolid}"
-                                            Text="{Binding totalOrder}" />
+                                            Text="{Binding TotalOrder}" />
                                     </StackPanel>
                                 </Border>
                                 <Border
@@ -139,10 +145,13 @@
                                             Text="Your Wallet"
                                             TextAlignment="Center" />
                                         <TextBlock
+                                            x:Name="txtTotalMoneyUser"
+                                            Margin="0,20,0,0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
                                             FontSize="18"
                                             FontWeight="Bold"
-                                            Foreground="Green"
-                                            Text="{Binding totalOrderBill}" />
+                                            Foreground="Green" />
                                     </StackPanel>
                                 </Border>
 
@@ -155,7 +164,7 @@
                                 <Image
                                     Width="500"
                                     Margin="0,30,0,0"
-                                    Source="C:\Users\lethe\source\repos\Test1\Test1\Image\Karma is a Cat.jpg" />
+                                    Source="E:\Asignment_PRN_212\Test1\Image\Karma is a Cat.jpg" />
 
                             </Grid>
 
@@ -234,8 +243,7 @@
                                     x:Name="ProfileImage"
                                     Width="100"
                                     Height="100"
-                                    Margin="0,30,0,30"
-                                    Source="{Binding pathImagePerson}">
+                                    Margin="0,30,0,30">
                                     <Image.Clip>
                                         <EllipseGeometry
                                             Center="50,50"
@@ -311,15 +319,21 @@
                                     <StackPanel Orientation="Horizontal">
                                         <TextBox
                                             x:Name="txtUserName"
+                                            Width="100"
                                             Margin="0,0,10,10"
                                             Cursor="None"
-                                            IsReadOnly="True"
-                                            Width="100"
-                                           
-                                            />
+                                            IsReadOnly="True" />
                                         <DockPanel>
-                                            <TextBlock Text="Role: " FontSize="16" VerticalAlignment="Center" />
-                                            <TextBlock Text="{Binding roleAccount}" VerticalAlignment="Center" Margin="10 0 0 0" FontSize="16"/>
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                FontSize="16"
+                                                Text="Role: " />
+                                            <TextBlock
+                                                x:Name="txtRoleAccount"
+                                                Margin="10,0,0,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="16"
+                                                FontWeight="Bold" />
                                         </DockPanel>
                                     </StackPanel>
                                     <TextBox x:Name="txtFullName" Margin="0,0,0,10" />
@@ -346,7 +360,10 @@
                                             Content="Other"
                                             GroupName="Gender" />
                                     </StackPanel>
-                                    <DatePicker materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                                    <DatePicker
+                                        x:Name="dpBirthday"
+                                        materialDesign:TextFieldAssist.HasClearButton="True"
+                                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                                 </StackPanel>
                                 <Button
                                     x:Name="btnSaveProFile"
@@ -412,10 +429,7 @@
                                                 VerticalAlignment="Center"
                                                 Text="Product ID"
                                                 TextAlignment="Right" />
-                                            <TextBox
-                                                x:Name="txtNameProduct"
-                                                Width="100"
-                                                Text="{Binding ProductId}" />
+                                            <TextBox x:Name="txtProductid" Width="100" />
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock
@@ -424,10 +438,7 @@
                                                 VerticalAlignment="Center"
                                                 Text="Product Name"
                                                 TextAlignment="Right" />
-                                            <TextBox
-                                                x:Name="txtdsad"
-                                                Width="100"
-                                                Text="{Binding ProductName}" />
+                                            <TextBox x:Name="txtProductName" Width="100" />
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock
@@ -436,17 +447,12 @@
                                                 VerticalAlignment="Center"
                                                 Text="Categrory"
                                                 TextAlignment="Right" />
-                                            <ComboBox x:Name="cbxCateGrory" Width="100">
-                                                <ComboBoxItem>
-                                                    <TextBlock Text="Computer" />
-                                                </ComboBoxItem>
-                                                <ComboBoxItem>
-                                                    <TextBlock Text="SmarthPhone" />
-                                                </ComboBoxItem>
-                                                <ComboBoxItem>
-                                                    <TextBlock Text="Mouse" />
-                                                </ComboBoxItem>
-                                            </ComboBox>
+                                            <ComboBox
+                                                x:Name="cbxCateGrory"
+                                                Width="100"
+                                                DisplayMemberPath="CategoryName"
+                                                SelectedValue="{Binding CategoryId, Mode=TwoWay}"
+                                                SelectedValuePath="CategoryId" />
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock
@@ -468,7 +474,7 @@
                                                 Width="50"
                                                 Margin="0,0,20,0"
                                                 HorizontalAlignment="Right"
-                                                VerticalAlignment="Center"
+                                                VerticalAlignment="Bottom"
                                                 Text="Stock"
                                                 TextAlignment="Right" />
                                             <TextBox x:Name="txtStockProduct" Width="100" />
@@ -477,27 +483,12 @@
                                             <TextBlock
                                                 Width="50"
                                                 Margin="0,0,20,0"
-                                                VerticalAlignment="Center"
+                                                VerticalAlignment="Bottom"
                                                 Text="Price($):"
                                                 TextAlignment="Right" />
                                             <TextBox x:Name="txtPrice" Width="100" />
                                         </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock
-                                                Width="50"
-                                                Margin="0,0,20,0"
-                                                VerticalAlignment="Center"
-                                                Text="Status: "
-                                                TextAlignment="Right" />
-                                            <ComboBox x:Name="cbxStatusProduct" Width="100">
-                                                <ComboBoxItem>
-                                                    <TextBlock Text="Active" />
-                                                </ComboBoxItem>
-                                                <ComboBoxItem>
-                                                    <TextBlock Text="Sold Out" />
-                                                </ComboBoxItem>
-                                            </ComboBox>
-                                        </StackPanel>
+
                                     </StackPanel>
                                     <StackPanel
                                         Grid.Row="1"
@@ -510,17 +501,26 @@
                                             x:Name="btnCreateProduct"
                                             Width="80"
                                             Margin="0,0,20,0"
+                                            Click="btnCreateProduct_Click"
                                             Content="Create" />
                                         <Button
                                             x:Name="btnUpdateProduct"
                                             Width="80"
                                             Margin="0,0,20,0"
+                                            Click="btnUpdateProduct_Click"
                                             Content="Update" />
                                         <Button
                                             x:Name="btnClearProduct"
                                             Width="80"
                                             Margin="0,0,20,0"
+                                            Click="btnClearProduct_Click"
                                             Content="Clear" />
+                                        <Button
+                                            x:Name="btnDelete"
+                                            Width="80"
+                                            Margin="0,0,20,0"
+                                            Click="btnDelete_Click"
+                                            Content="Delete" />
                                     </StackPanel>
                                 </Grid>
 
@@ -532,23 +532,13 @@
                                             Width="100"
                                             Height="100"
                                             Margin="0,0,0,20"
-                                            Source="{Binding ImangePathProduct}">
-                                            <Image.Clip>
-                                                <EllipseGeometry
-                                                    Center="50,50"
-                                                    RadiusX="50"
-                                                    RadiusY="50" />
-                                            </Image.Clip>
-                                        </Image>
+                                            Source="{Binding ImangePathProduct}" />
                                     </Grid>
                                     <Button
                                         x:Name="btnBowseImageProduc"
                                         Width="100"
                                         Click="btnBowseImageProduc_Click"
                                         Content="Bownse" />
-
-
-
                                 </StackPanel>
                             </Grid>
 
@@ -563,7 +553,8 @@
                                 CanUserAddRows="False"
                                 HeadersVisibility="All"
                                 IsReadOnly="True"
-                                ItemsSource="{Binding ItemDataGridProducts}"
+                                ItemsSource="{Binding ProductList}"
+                                SelectionChanged="DataGridProduct_SelectionChanged"
                                 SelectionMode="Single"
                                 SelectionUnit="FullRow">
                                 <DataGrid.Columns>
@@ -605,19 +596,7 @@
                                             </Style>
                                         </DataGridTextColumn.ElementStyle>
                                     </DataGridTextColumn>
-                                    <DataGridTextColumn Width="auto" Binding="{Binding Author}">
-                                        <DataGridTextColumn.Header>
-                                            <TextBlock Text="Author" />
-                                        </DataGridTextColumn.Header>
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="TextAlignment" Value="Center" />
-                                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                                <Setter Property="VerticalAlignment" Value="Center" />
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
-                                        
+
                                     <DataGridTextColumn Width="auto" Binding="{Binding ProductDescription}">
                                         <DataGridTextColumn.Header>
                                             <TextBlock Text="Description" />
@@ -657,7 +636,7 @@
                                         </DataGridTextColumn.ElementStyle>
                                     </DataGridTextColumn>
 
-                                    <DataGridTextColumn Width="auto" Binding="{Binding CateGoryID}">
+                                    <DataGridTextColumn Width="auto" Binding="{Binding Storage}">
                                         <DataGridTextColumn.Header>
                                             <TextBlock Text="Categories" />
                                         </DataGridTextColumn.Header>
@@ -670,7 +649,7 @@
                                         </DataGridTextColumn.ElementStyle>
                                     </DataGridTextColumn>
 
-                                    <DataGridTextColumn Width="auto" Binding="{Binding CreatAt}">
+                                    <DataGridTextColumn Width="auto" Binding="{Binding CreatedAt}">
                                         <DataGridTextColumn.Header>
                                             <TextBlock Text="Create At" />
                                         </DataGridTextColumn.Header>
@@ -683,7 +662,7 @@
                                         </DataGridTextColumn.ElementStyle>
                                     </DataGridTextColumn>
 
-                                    <DataGridTextColumn Width="auto" Binding="{Binding UpdateAt}">
+                                    <DataGridTextColumn Width="auto" Binding="{Binding UpdatedAt}">
                                         <DataGridTextColumn.Header>
                                             <TextBlock Text="Update At" />
                                         </DataGridTextColumn.Header>
@@ -706,23 +685,10 @@
                                                 <Image
                                                     Width="50"
                                                     Height="50"
-                                                    Source="{Binding ImangePathProduct}" />
+                                                    Source="{Binding ImagePathProduct}" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
-
-
-                                    <DataGridTextColumn Width="auto" Binding="{Binding Status}">
-                                        <DataGridTextColumn.Header>
-                                            <TextBlock Text="Status" />
-                                        </DataGridTextColumn.Header>
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                                <Setter Property="VerticalAlignment" Value="Center" />
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
@@ -749,7 +715,7 @@
                             </Grid.RowDefinitions>
 
                             <DataGrid
-                                x:Name="DataGridAccount"
+                                x:Name="DataGridUsers"
                                 materialDesign:DataGridAssist.SelectedCellBorderBrush="{x:Null}"
                                 AutoGenerateColumns="False"
                                 CanUserAddRows="False"
@@ -763,13 +729,13 @@
 
 
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Width="50" Binding="{Binding Id}">
+                                    <DataGridTextColumn Width="70" Binding="{Binding Id}">
                                         <DataGridTextColumn.Header>
                                             <TextBlock Text="ID" />
                                         </DataGridTextColumn.Header>
                                     </DataGridTextColumn>
 
-                                    <DataGridTextColumn Binding="{Binding userName}">
+                                    <DataGridTextColumn Binding="{Binding UserName}">
                                         <DataGridTextColumn.Header>
                                             <TextBlock Text="User Name" />
                                         </DataGridTextColumn.Header>
@@ -798,7 +764,7 @@
                                         </DataGridTextColumn.Header>
                                     </DataGridTextColumn>
 
-                                    <DataGridTextColumn Width="120" Binding="{Binding phoneNumber}">
+                                    <DataGridTextColumn Width="150" Binding="{Binding PhoneNumber}">
                                         <DataGridTextColumn.Header>
                                             <TextBlock Text="PhoneNumber" TextAlignment="Center" />
                                         </DataGridTextColumn.Header>
@@ -844,11 +810,11 @@
 
                                     <!--  ID  -->
                                     <TextBlock
-                                        TextAlignment="Right"
                                         Grid.Row="0"
                                         Grid.Column="0"
                                         VerticalAlignment="Center"
-                                        Text="ID:" />
+                                        Text="ID:"
+                                        TextAlignment="Right" />
                                     <TextBox
                                         Name="txtUserIdAC"
                                         Grid.Column="1"
@@ -858,11 +824,11 @@
 
                                     <!--  User Name  -->
                                     <TextBlock
-                                        TextAlignment="Right"
                                         Grid.Row="0"
                                         Grid.Column="3"
                                         VerticalAlignment="Center"
-                                        Text="User Name:" />
+                                        Text="User Name:"
+                                        TextAlignment="Right" />
                                     <TextBox
                                         Name="txtUserNameAC"
                                         Grid.Row="0"
@@ -872,11 +838,11 @@
 
                                     <!--  Full Name  -->
                                     <TextBlock
-                                        TextAlignment="Right"
                                         Grid.Row="1"
                                         Grid.Column="0"
                                         VerticalAlignment="Center"
-                                        Text="Full Name:" />
+                                        Text="Full Name:"
+                                        TextAlignment="Right" />
                                     <TextBox
                                         Name="txtFullNameAC"
                                         Grid.Row="1"
@@ -886,11 +852,11 @@
 
                                     <!--  Age  -->
                                     <TextBlock
-                                        TextAlignment="Right"
                                         Grid.Row="1"
                                         Grid.Column="3"
                                         VerticalAlignment="Center"
-                                        Text="Age:" />
+                                        Text="Age:"
+                                        TextAlignment="Right" />
                                     <TextBox
                                         Name="txtAgeAC"
                                         Grid.Row="1"
@@ -900,11 +866,11 @@
 
                                     <!--  Gender  -->
                                     <TextBlock
-                                        TextAlignment="Right"
                                         Grid.Row="2"
                                         Grid.Column="0"
                                         VerticalAlignment="Center"
-                                        Text="Gender:" />
+                                        Text="Gender:"
+                                        TextAlignment="Right" />
                                     <TextBox
                                         Name="txtGenderAC"
                                         Grid.Row="2"
@@ -914,11 +880,11 @@
 
                                     <!--  Address  -->
                                     <TextBlock
-                                        TextAlignment="Right"
                                         Grid.Row="2"
                                         Grid.Column="3"
                                         VerticalAlignment="Center"
-                                        Text="Address:" />
+                                        Text="Address:"
+                                        TextAlignment="Right" />
                                     <TextBox
                                         Name="txtAddress"
                                         Grid.Row="2"
@@ -928,11 +894,11 @@
 
                                     <!--  Phone Number  -->
                                     <TextBlock
-                                        TextAlignment="Right"
                                         Grid.Row="3"
                                         Grid.Column="0"
                                         VerticalAlignment="Center"
-                                        Text="Phone Number:" />
+                                        Text="Phone Number:"
+                                        TextAlignment="Right" />
                                     <TextBox
                                         Name="txtPhoneNumberAC"
                                         Grid.Row="3"
@@ -942,17 +908,17 @@
 
                                     <TextBlock
                                         Grid.Row="4"
-                                        TextAlignment="Right"
                                         Grid.Column="0"
+                                        Margin="0,0,10,0"
                                         VerticalAlignment="Bottom"
-                                        Margin="0 0 10 0"
-                                        Text="Role:" />
+                                        Text="Role:"
+                                        TextAlignment="Right" />
                                     <StackPanel
                                         Grid.Row="4"
                                         Grid.Column="1"
                                         Margin="0,0,10,0"
                                         HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
+                                        VerticalAlignment="Bottom"
                                         Orientation="Horizontal">
                                         <RadioButton
                                             x:Name="rdoAdmin"
@@ -970,10 +936,10 @@
                                     <!--  Email  -->
                                     <TextBlock
                                         Grid.Row="3"
-                                        TextAlignment="Right"
                                         Grid.Column="3"
                                         VerticalAlignment="Center"
-                                        Text="Email:" />
+                                        Text="Email:"
+                                        TextAlignment="Right" />
                                     <TextBox
                                         Name="txtEmailAC"
                                         Grid.Row="3"
@@ -982,11 +948,11 @@
                                         Text="{Binding Email, Mode=TwoWay}" />
 
                                     <TextBlock
-                                        TextAlignment="Right"
                                         Grid.Row="4"
                                         Grid.Column="3"
                                         VerticalAlignment="Center"
-                                        Text="PassWord: " />
+                                        Text="PassWord: "
+                                        TextAlignment="Right" />
                                     <PasswordBox
                                         x:Name="pswdAC"
                                         Grid.Row="4"
@@ -1025,6 +991,7 @@
                                             Width="100"
                                             Margin="5"
                                             Background="{StaticResource ColorSubmit}"
+                                            Click="btnCreateAC_Click"
                                             Content="Create" />
                                         <Button
                                             x:Name="btnSearchAC"
@@ -1032,6 +999,7 @@
                                             Width="100"
                                             Margin="5"
                                             Background="{StaticResource PrimaryHueMidBrush}"
+                                            Click="btnSearchAC_Click"
                                             Content="Search" />
                                     </Grid>
                                     <Grid>
@@ -1045,6 +1013,7 @@
                                             Width="100"
                                             Margin="5"
                                             Background="{StaticResource MaterialDesign.Brush.Primary.Dark}"
+                                            Click="btnUpdateAC_Click"
                                             Content="Update" />
                                         <Button
                                             x:Name="btnDeleteAC"
@@ -1052,6 +1021,7 @@
                                             Width="100"
                                             Margin="5"
                                             Background="{StaticResource ColorRedsolid}"
+                                            Click="btnDeleteAC_Click"
                                             Content="Delete" />
                                     </Grid>
                                 </StackPanel>
@@ -1078,6 +1048,7 @@
                         </TabItem.Header>
                         <Grid Margin="16">
                             <DataGrid
+                                x:Name="DataGridYourHistory"
                                 Grid.Row="0"
                                 materialDesign:DataGridAssist.SelectedCellBorderBrush="{x:Null}"
                                 AutoGenerateColumns="False"
@@ -1087,12 +1058,13 @@
                                 HeadersVisibility="All"
                                 IsReadOnly="True"
                                 ItemsSource="{Binding ItemHistoryBills}"
+                                MouseDoubleClick="DataGridYourHistory_MouseDoubleClick"
+                                SelectionChanged="DataGridYourHistory_SelectionChanged"
                                 SelectionMode="Single"
                                 SelectionUnit="FullRow">
                                 <DataGrid.Columns>
-
                                     <!--  Order ID  -->
-                                    <DataGridTextColumn Width="auto" Binding="{Binding OrderBillId}">
+                                    <DataGridTextColumn Width="auto" Binding="{Binding OrderId}">
                                         <DataGridTextColumn.Header>
                                             <TextBlock FontSize="14" Text="Order ID" />
                                         </DataGridTextColumn.Header>
@@ -1106,7 +1078,7 @@
                                     </DataGridTextColumn>
 
                                     <!--  Name  -->
-                                    <DataGridTextColumn Width="80" Binding="{Binding OrderBillName}">
+                                    <DataGridTextColumn Width="80" Binding="{Binding ReceiverName}">
                                         <DataGridTextColumn.Header>
                                             <TextBlock FontSize="14" Text="Name" />
                                         </DataGridTextColumn.Header>
@@ -1120,7 +1092,7 @@
                                     </DataGridTextColumn>
 
                                     <!--  Phone  -->
-                                    <DataGridTextColumn Width="80" Binding="{Binding OrderPhone}">
+                                    <DataGridTextColumn Width="80" Binding="{Binding ReceiverPhone}">
                                         <DataGridTextColumn.Header>
                                             <TextBlock FontSize="14" Text="Phone" />
                                         </DataGridTextColumn.Header>
@@ -1133,10 +1105,13 @@
                                         </DataGridTextColumn.ElementStyle>
                                     </DataGridTextColumn>
 
-                                    <!--  Email  -->
-                                    <DataGridTextColumn Width="80" Binding="{Binding OrderEmail}">
+
+                                    <DataGridTextColumn
+                                        x:Name="txtTotalPrice"
+                                        Width="80"
+                                        Binding="{Binding TotalQuantity}">
                                         <DataGridTextColumn.Header>
-                                            <TextBlock FontSize="14" Text="Email" />
+                                            <TextBlock FontSize="14" Text="Total Quantity" />
                                         </DataGridTextColumn.Header>
                                         <DataGridTextColumn.ElementStyle>
                                             <Style TargetType="TextBlock">
@@ -1148,9 +1123,26 @@
                                     </DataGridTextColumn>
 
                                     <!--  Total  -->
-                                    <DataGridTextColumn Width="130" Binding="{Binding TotalOfbills}">
+                                    <DataGridTemplateColumn Width="130" Header="Total Amount">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    FontWeight="Bold"
+                                                    Text="{Binding TotalPrice, StringFormat=C2}"
+                                                    TextAlignment="Center">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Foreground" Value="Green" />
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+
+                                    <DataGridTextColumn Width="auto" Binding="{Binding Description}">
                                         <DataGridTextColumn.Header>
-                                            <TextBlock FontSize="14" Text="Total Amount" />
+                                            <TextBlock FontSize="14" Text="Description" />
                                         </DataGridTextColumn.Header>
                                         <DataGridTextColumn.ElementStyle>
                                             <Style TargetType="TextBlock">
@@ -1161,21 +1153,9 @@
                                         </DataGridTextColumn.ElementStyle>
                                     </DataGridTextColumn>
 
-                                    <!--  Created At  -->
-                                    <DataGridTextColumn Width="100" Binding="{Binding OrderCreatAt}">
-                                        <DataGridTextColumn.Header>
-                                            <TextBlock FontSize="14" Text="Created at" />
-                                        </DataGridTextColumn.Header>
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="TextAlignment" Value="Center" />
-                                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                                <Setter Property="VerticalAlignment" Value="Center" />
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
+
                                     <!--  Created Update  -->
-                                    <DataGridTextColumn Width="140" Binding="{Binding OrderCreateUpdate}">
+                                    <DataGridTextColumn Width="140" Binding="{Binding OrderDate}">
                                         <DataGridTextColumn.Header>
                                             <TextBlock FontSize="14" Text="Create Update" />
                                         </DataGridTextColumn.Header>
@@ -1191,7 +1171,7 @@
 
 
                                     <!--  Content  -->
-                                    <DataGridTextColumn Width="auto" Binding="{Binding ContentOrderBill}">
+                                    <DataGridTextColumn Width="auto" Binding="{Binding ContentOrder}">
                                         <DataGridTextColumn.Header>
                                             <TextBlock FontSize="14" Text="Content" />
                                         </DataGridTextColumn.Header>
@@ -1205,18 +1185,50 @@
                                     </DataGridTextColumn>
 
                                     <!--  ComboBox Column for Status  -->
-                                    <DataGridTemplateColumn Width="auto">
-                                        <DataGridTemplateColumn.Header>
-                                            <TextBlock FontSize="14" Text="Status" />
-                                        </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn Width="auto" Header="Status">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Status}" />
+                                                <TextBlock
+                                                    FontWeight="Bold"
+                                                    Text="{Binding OrderStatus}"
+                                                    TextAlignment="Center">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Foreground" Value="Gray" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding OrderStatus}" Value="Pressing...">
+                                                                    <Setter Property="Foreground" Value="Orange" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding OrderStatus}" Value="Pending">
+                                                                    <Setter Property="Foreground" Value="Green" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding OrderStatus}" Value="Done">
+                                                                    <Setter Property="Foreground" Value="Blue" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding OrderStatus}" Value="Cancelled">
+                                                                    <Setter Property="Foreground" Value="Red" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
+
                                 </DataGrid.Columns>
                             </DataGrid>
+
+
+                            <Button
+                                x:Name="btnRefresh"
+                                Width="100"
+                                Height="30"
+                                Margin="10"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Click="btnRefresh_Click"
+                                Content="Refresh" />
                         </Grid>
 
                     </TabItem>

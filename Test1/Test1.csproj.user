@@ -28,13 +28,19 @@
     <Compile Update="View\Login.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\OrderDetail.xaml.cs">
+    <Compile Update="View\OrderInformation.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\Register.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\ShowInformation.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\UpdateProfile.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\ViewOrder.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -58,9 +64,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Login.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\OrderDetail.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Register.xaml">
