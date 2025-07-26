@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Test1.Models;
+using Test1.Model;
 
 namespace Test1
 {
@@ -21,7 +21,7 @@ namespace Test1
     public partial class ForgotPassword : Window
     {
 
-        Prn212AsignmentContext context = new Prn212AsignmentContext();
+        Prn212AssignmentContext context = new Prn212AssignmentContext();
 
         public ForgotPassword()
         {

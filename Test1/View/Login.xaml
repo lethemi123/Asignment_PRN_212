@@ -34,7 +34,7 @@
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
         <Grid Grid.Column="0" Grid.ColumnSpan="7">
-            <local:ControlBarUC></local:ControlBarUC>
+            <local:ControlBarUC> </local:ControlBarUC>
         </Grid>
         <Image
             Grid.Row="1"
@@ -42,7 +42,7 @@
             Grid.ColumnSpan="3"
             Width="100"
             VerticalAlignment="Center"
-            Source="C:\Users\lethe\source\repos\Test1\Test1\Image\Daco_5096993.png" />
+            Source="E:\Asignment_PRN_212\Test1\Image\Daco_5096993.png" />
         <TextBlock
             Grid.Row="3"
             Grid.Column="2"

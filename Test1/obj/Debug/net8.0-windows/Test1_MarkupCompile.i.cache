@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\lethe\source\repos\Test1\Test1\obj\Debug\net8.0-windows\
+E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\
 Test1
 none
 false
-TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-C:\Users\lethe\source\repos\Test1\Test1\App.xaml
-10-906788378
+TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
+E:\Asignment_PRN_212\Test1\App.xaml
+12-535455826
 
-24-1317630429
-2311438121682
-Manage\Admin.xaml;Manage\Customer.xaml;UserControlBar\ControlBarUC.xaml;View\CreaditCard.xaml;View\CurrentPassword.xaml;View\ForgotPassword.xaml;View\Login.xaml;View\OrderDetail.xaml;View\Register.xaml;View\UpdateProfile.xaml;
+31-1472179694
+2311273655800
+Manage\Admin.xaml;Manage\Customer.xaml;UserControlBar\ControlBarUC.xaml;View\CreaditCard.xaml;View\CurrentPassword.xaml;View\ForgotPassword.xaml;View\Login.xaml;View\OrderInformation.xaml;View\Register.xaml;View\ShowInformation.xaml;View\UpdateProfile.xaml;View\ViewOrder.xaml;
 
-True
+False
 
