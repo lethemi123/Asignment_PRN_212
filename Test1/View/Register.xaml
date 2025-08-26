@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Test1.UserControlBar"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="800"
     Height="450"
     MouseDown="Window_MouseDown"
@@ -34,9 +34,9 @@
         <TextBlock
             Grid.Row="1"
             Grid.Column="3"
-            Grid.ColumnSpan="2"
-            Margin="0,30,0,0"
-            VerticalAlignment="Center"
+            Grid.ColumnSpan="3"
+            Margin="55,64,25,0"
+            VerticalAlignment="Top"
             FontFamily="Segoe UI Black"
             FontSize="25"
             FontWeight="Bold"
@@ -47,13 +47,13 @@
             Grid.RowSpan="3"
             Grid.Column="1"
             Grid.ColumnSpan="2"
-            Source="C:\Users\lethe\source\repos\Test1\Test1\Image\sign-up.png" />
+            Source="E:\Asignment_PRN_212\Test1\Image\sign-up.png" />
         <StackPanel
-            Grid.Row="1"
-            Grid.RowSpan="4"
-            Grid.Column="2"
-            Grid.ColumnSpan="4"
-            Margin="125,131,25,0"
+            Grid.Row="2"
+            Grid.RowSpan="3"
+            Grid.Column="3"
+            Grid.ColumnSpan="3"
+            Margin="55,0,25,0"
             Orientation="Vertical">
             <TextBlock FontSize="16">
                 <Run Text="Already have an account? " />
@@ -71,8 +71,9 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     FontSize="16"
+                    FontWeight="Bold"
                     Foreground="{DynamicResource PrimaryHueMidBrush}"
-                    Text="Name: " />
+                    Text="UserName: " />
                 <TextBox
                     x:Name="txtUserName"
                     Grid.Column="1"
@@ -97,6 +98,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     FontSize="16"
+                    FontWeight="Bold"
                     Foreground="{DynamicResource PrimaryHueMidBrush}"
                     Text="Password: " />
                 <PasswordBox
@@ -125,6 +127,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     FontSize="16"
+                    FontWeight="Bold"
                     Foreground="{DynamicResource PrimaryHueMidBrush}"
                     Text="Email: " />
                 <TextBox
@@ -147,7 +150,7 @@
                 Margin="0,20,0,0"
                 Click="btnCreateAccount_Click"
                 Content="Creat Account"
-                FontWeight="Bold" />
+                FontWeight="Bold" Width="323" />
         </StackPanel>
     </Grid>
 </Window>

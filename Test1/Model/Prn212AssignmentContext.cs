@@ -31,26 +31,19 @@ public partial class Prn212AssignmentContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-FSR0LC1\\SQLEXPRESS;Database=prn212_Assignment;User Id=sa;Password=sa;Encrypt=False;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-FSR0LC1\\SQLEXPRESS;Database=prn212_Assignment;UId=sa;pwd=sa;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Cart>(entity =>
         {
-            entity.HasKey(e => e.CartId).HasName("PK__Cart__51BCD7B74ED3D00E");
+            entity.HasKey(e => e.CartId).HasName("PK__Cart__51BCD7B700F79208");
 
             entity.ToTable("Cart");
 
-            entity.Property(e => e.CartId)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.PersonId)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.ProductId)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("ProductID");
+            entity.Property(e => e.IsSelected).HasDefaultValue(false);
+            entity.Property(e => e.ProductId).HasColumnName("ProductID");
+            entity.Property(e => e.VariantId).HasColumnName("VariantID");
 
             entity.HasOne(d => d.Person).WithMany(p => p.Carts)
                 .HasForeignKey(d => d.PersonId)
@@ -58,7 +51,12 @@ public partial class Prn212AssignmentContext : DbContext
 
             entity.HasOne(d => d.Product).WithMany(p => p.Carts)
                 .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Cart_Product");
+
+            entity.HasOne(d => d.Variant).WithMany(p => p.Carts)
+                .HasForeignKey(d => d.VariantId)
+                .HasConstraintName("FK_Cart_Variant");
         });
 
         modelBuilder.Entity<Category>(entity =>
@@ -86,13 +84,19 @@ public partial class Prn212AssignmentContext : DbContext
             entity.Property(e => e.OrderAddress)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.OrderDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
             entity.Property(e => e.OrderStatus)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasDefaultValue("Processing..");
-            entity.Property(e => e.PersonId)
+            entity.Property(e => e.PaymentMethod)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .HasDefaultValue("COD");
+            entity.Property(e => e.ReceiverAddress).HasMaxLength(200);
+            entity.Property(e => e.ReceiverName).HasMaxLength(100);
+            entity.Property(e => e.ReceiverPhone).HasMaxLength(20);
 
             entity.HasOne(d => d.Person).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.PersonId)
@@ -110,10 +114,8 @@ public partial class Prn212AssignmentContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("OrderID");
-            entity.Property(e => e.ProductId)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("ProductID");
+            entity.Property(e => e.ProductId).HasColumnName("ProductID");
+            entity.Property(e => e.VariantId).HasColumnName("VariantID");
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.OrderId)
@@ -121,22 +123,18 @@ public partial class Prn212AssignmentContext : DbContext
 
             entity.HasOne(d => d.Product).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_OrderDetails_Product");
         });
 
         modelBuilder.Entity<Person>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Person__3214EC0767CF50CD");
-
             entity.ToTable("Person");
 
             entity.HasIndex(e => e.Email, "UQ__Person__A9D105342B37D5DC").IsUnique();
 
             entity.HasIndex(e => e.UserName, "UQ__Person__C9F284565336AD01").IsUnique();
 
-            entity.Property(e => e.Id)
-                .HasMaxLength(50)
-                .IsUnicode(false);
             entity.Property(e => e.Address)
                 .HasMaxLength(255)
                 .IsUnicode(false);
@@ -172,13 +170,12 @@ public partial class Prn212AssignmentContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.ProductId).HasName("PK__Product__B40CC6EDAEE15F9C");
+            entity.HasKey(e => e.ProductId).HasName("PK__Product__B40CC6ED75D48974");
 
             entity.ToTable("Product");
 
             entity.Property(e => e.ProductId)
-                .HasMaxLength(50)
-                .IsUnicode(false)
+                .ValueGeneratedNever()
                 .HasColumnName("ProductID");
             entity.Property(e => e.CategoryId)
                 .HasMaxLength(50)
@@ -203,16 +200,11 @@ public partial class Prn212AssignmentContext : DbContext
 
         modelBuilder.Entity<ProductVariant>(entity =>
         {
-            entity.HasKey(e => e.VariantId).HasName("PK__ProductV__0EA233E43623A7CB");
+            entity.HasKey(e => e.VariantId).HasName("PK__ProductV__0EA233E44F89903C");
 
-            entity.Property(e => e.VariantId)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("VariantID");
-            entity.Property(e => e.ProductId)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("ProductID");
+            entity.Property(e => e.VariantId).HasColumnName("VariantID");
+            entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
+            entity.Property(e => e.ProductId).HasColumnName("ProductID");
             entity.Property(e => e.Storage)
                 .HasMaxLength(50)
                 .IsUnicode(false);

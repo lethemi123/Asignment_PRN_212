@@ -8,9 +8,9 @@
     Title="OrderDetail"
     Width="800"
     Height="600"
-    WindowStyle="None"
     Background="White"
     MouseDown="Window_MouseDown"
+    WindowStyle="None"
     mc:Ignorable="d">
 
     <Grid>
@@ -65,7 +65,7 @@
                 <TextBlock x:Name="txtOrderID" Text="{Binding CartId}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock FontSize="14" Text="Date: " />
+                <TextBlock FontSize="15" Text="Date: " />
                 <TextBlock
                     x:Name="txtOrderDate"
                     VerticalAlignment="Bottom"
@@ -126,8 +126,7 @@
             Margin="0,20,0,0"
             AutoGenerateColumns="False"
             CanUserAddRows="False"
-             IsReadOnly="False"
-            SelectionChanged="dataGridOrderDetail_SelectionChanged">
+            IsReadOnly="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Width="50">
                     <DataGridTemplateColumn.Header>

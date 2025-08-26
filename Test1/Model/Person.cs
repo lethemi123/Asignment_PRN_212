@@ -5,8 +5,6 @@ namespace Test1.Model;
 
 public partial class Person
 {
-    public string Id { get; set; } = Guid.NewGuid().ToString();
-
     public string UserName { get; set; } = null!;
 
     public string Password { get; set; } = null!;
@@ -26,13 +24,14 @@ public partial class Person
     public string? Email { get; set; }
 
     public DateOnly? DateOfBirth { get; set; }
-    public string FullName => $"{Fname} {Lname}".Trim();
 
     public string? PathImagePerson { get; set; }
 
     public bool? RoleAccount { get; set; }
 
     public double? Balance { get; set; }
+
+    public int Id { get; set; }
 
     public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
 

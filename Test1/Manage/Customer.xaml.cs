@@ -31,9 +31,9 @@ namespace Test1.Manage
         public ObservableCollection<Category> ListCategory { get; set; }
         private readonly Prn212AssignmentContext context;
 
-        public Customer(Person user)
+        public Customer(Person userId)
         {
-            currentUser = user;
+            currentUser = userId;
             InitializeComponent();
             context = new Prn212AssignmentContext();
 
@@ -165,7 +165,7 @@ namespace Test1.Manage
             if (selectProduct != null)
             {
                 tbxProductName.Text = selectProduct.ProductName;
-                tbxProductID.Text = selectProduct.ProductId;
+                tbxProductID.Text = selectProduct.ProductId.ToString();
                 tbxProducType.Text = selectProduct.Category?.CategoryName ?? "N/A";
 
                 cbxProductVariants.ItemsSource = selectProduct.ProductVariants.ToList();

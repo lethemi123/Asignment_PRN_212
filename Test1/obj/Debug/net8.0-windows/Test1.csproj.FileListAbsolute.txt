@@ -139,6 +139,7 @@ E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\View\CreaditCard.g.cs
 E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\View\CurrentPassword.g.cs
 E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\View\ForgotPassword.g.cs
 E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\View\Login.g.cs
+E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\View\OrderInformation.g.cs
 E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\View\Register.g.cs
 E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\View\ShowInformation.g.cs
 E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\View\UpdateProfile.g.cs
@@ -154,6 +155,7 @@ E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\View\CreaditCard.baml
 E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\View\CurrentPassword.baml
 E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\View\ForgotPassword.baml
 E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\View\Login.baml
+E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\View\OrderInformation.baml
 E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\View\Register.baml
 E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\View\ShowInformation.baml
 E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\View\UpdateProfile.baml
@@ -170,5 +172,3 @@ E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\refint\Test1.dll
 E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\Test1.pdb
 E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\Test1.genruntimeconfig.cache
 E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\ref\Test1.dll
-E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\View\OrderInformation.g.cs
-E:\Asignment_PRN_212\Test1\obj\Debug\net8.0-windows\View\OrderInformation.baml

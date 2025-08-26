@@ -170,6 +170,7 @@
                     TextWrapping="Wrap"
                     VerticalScrollBarVisibility="Auto" />
                 <DatePicker
+                    x:Name="dpBirthDay"
                     Grid.Column="2"
                     Width="140"
                     Padding="10"
@@ -177,6 +178,7 @@
                     materialDesign:HintAssist.Background="White"
                     materialDesign:HintAssist.Hint="Your BirthDay"
                     materialDesign:HintAssist.HintPaddingBrush="White"
+                    SelectedDateChanged="dpBirthDay_SelectedDateChanged"
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
             </Grid>
             <StackPanel Width="505" Orientation="Vertical">

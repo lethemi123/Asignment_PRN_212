@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Test1.Model;
 
 namespace Test1.Model
 {
@@ -22,7 +23,7 @@ namespace Test1.Model
         public string? ReceiverPhone { get; set; }
         public string? ReceiverAddress { get; set; }
         public string? Description { get; set; }
-        public List<OrderDetail> OrderDetails { get; set; } // Thêm thuộc tính này
+        public List<OrderDetail> OrderDetails { get; set; } 
         public string? ContentOrder { get; set; }
 
     }
