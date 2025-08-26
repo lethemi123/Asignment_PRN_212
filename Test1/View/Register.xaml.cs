@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Test1.Model;
 using static MaterialDesignThemes.Wpf.Theme;
 
 namespace Test1
@@ -74,8 +75,9 @@ namespace Test1
 
         private void txtEmail_TextChanged(object sender, TextChangedEventArgs e)
         {
-             string email = txtEmail.Text.Trim();
-            string formEmail = @"^[a-zA-Z0-9]+@gmail\.com$";
+            string email = txtEmail.Text.Trim();
+            string formEmail = @"^[a-zA-Z0-9._%+-]+@gmail\.com$"; // regex chuẩn hơn
+
             if (string.IsNullOrEmpty(email))
             {
                 txtEmail.SetValue(MaterialDesignThemes.Wpf.HintAssist.HelperTextProperty, "Email is Empty");
@@ -88,9 +90,24 @@ namespace Test1
             }
             else
             {
-                txtEmail.SetValue(MaterialDesignThemes.Wpf.HintAssist.HelperTextProperty, "");
+                // Check trong database
+                using (var context = new Prn212AssignmentContext())
+                {
+                    bool emailExists = context.People.Any(p => p.Email == email);
+
+                    if (emailExists)
+                    {
+                        txtEmail.SetValue(MaterialDesignThemes.Wpf.HintAssist.HelperTextProperty, "Email already exists!");
+                        txtEmail.SetResourceReference(MaterialDesignThemes.Wpf.HintAssist.HelperTextStyleProperty, "HelperTextStyleOverride");
+                    }
+                    else
+                    {
+                        txtEmail.SetValue(MaterialDesignThemes.Wpf.HintAssist.HelperTextProperty, "");
+                    }
+                }
             }
         }
+
 
         private void txtUserName_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -98,18 +115,47 @@ namespace Test1
             if (string.IsNullOrEmpty(userName))
             {
                 txtUserName.SetValue(MaterialDesignThemes.Wpf.HintAssist.HelperTextProperty, "Username is Empty");
-                txtUserName.SetResourceReference(MaterialDesignThemes.Wpf.HintAssist.HelperTextStyleProperty, "HelperTextStyleOverride");
             }
             else
             {
                 txtUserName.SetValue(MaterialDesignThemes.Wpf.HintAssist.HelperTextProperty, "");
             }
+            using (var context = new Prn212AssignmentContext())
+            {
+                bool usernameExists = context.People.Any(p => p.UserName == userName);
+                if (usernameExists)
+                {
+                    txtUserName.SetValue(MaterialDesignThemes.Wpf.HintAssist.HelperTextProperty, "Username already exists!");
+                    txtUserName.SetResourceReference(MaterialDesignThemes.Wpf.HintAssist.HelperTextStyleProperty, "HelperTextStyleOverride");
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(userName))
+                    {
+                        txtUserName.SetValue(MaterialDesignThemes.Wpf.HintAssist.HelperTextProperty, "");
+                    }
+                }
+            }
         }
 
         private void btnCreateAccount_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Create Account Successful", "Success", MessageBoxButton.OK, MessageBoxImage.Error);
-            UpdateProfile updateProfile = new UpdateProfile();
+            if (txtEmail.GetValue(MaterialDesignThemes.Wpf.HintAssist.HelperTextProperty)?.ToString() != "" ||
+                txtUserName.GetValue(MaterialDesignThemes.Wpf.HintAssist.HelperTextProperty)?.ToString() != "" ||
+                txtPassword.GetValue(MaterialDesignThemes.Wpf.HintAssist.HelperTextProperty)?.ToString() != "Strong password")
+            {
+                MessageBox.Show("Please fix all the errors", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            var account = new PendingAccount
+            {
+                UserName = txtUserName.Text.Trim(),
+                Email = txtEmail.Text.Trim(),
+                Password = txtPassword.Password.Trim() 
+            };
+
+      
+            var updateProfile = new UpdateProfile(account);
             updateProfile.Show();
             this.Close();
         }

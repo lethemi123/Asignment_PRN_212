@@ -10,6 +10,7 @@ namespace Test1.View
     /// </summary>
     public partial class OrderInformation : Window
     {
+        private event Action? OrderUpdated;
         private ViewOrderModel _selectedOrder;
         private Prn212AssignmentContext _context = new Prn212AssignmentContext();
 
@@ -19,6 +20,7 @@ namespace Test1.View
             _selectedOrder = selectedOrder;
             LoadInforMation(selectedOrder);
         }
+
 
         private void LoadInforMation(ViewOrderModel order)
         {
@@ -49,33 +51,31 @@ namespace Test1.View
 
             if (_selectedOrder.OrderStatus == "Pending")
             {
-                // Chuyển trạng thái đơn hàng thành 'Done'
                 var orderInDb = _context.Orders.FirstOrDefault(o => o.OrderId == _selectedOrder.OrderId);
                 if (orderInDb != null)
                 {
-                    orderInDb.OrderStatus = "Done";  // Cập nhật trạng thái đơn hàng
+                    orderInDb.OrderStatus = "Done";  
                     _context.SaveChanges();
-                }
-
-                // Cập nhật số lượng sản phẩm trong kho
+                    OrderUpdated?.Invoke();
+                }    
                 foreach (var orderDetail in _selectedOrder.OrderDetails)
                 {
                     var product = _context.ProductVariants.FirstOrDefault(p => p.ProductId == orderDetail.ProductId);
                     if (product != null)
                     {
-                        product.Stock -= orderDetail.Quantity;  // Trừ số lượng kho
+                        product.Stock -= orderDetail.Quantity; 
                     }
                 }
 
-                // Cộng tiền vào ví của Admin, không phải người đặt hàng
-                var adminUser = _context.People.FirstOrDefault(p => p.RoleAccount == true);  // Tìm Admin (có RoleAccount là true)
+                
+                var adminUser = _context.People.FirstOrDefault(p => p.RoleAccount == true);  
                 if (adminUser != null)
                 {
-                    adminUser.Balance += _selectedOrder.TotalPrice ?? 0;  // Cộng tiền vào ví Admin
+                    adminUser.Balance += _selectedOrder.TotalPrice ?? 0;  
                     _context.SaveChanges();
                 }
 
-                // Thông báo cho người dùng
+               
                 MessageBox.Show("Đơn hàng đã được xác nhận và chuyển sang trạng thái 'Done'.", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
                 MessageBox.Show("Số tiền đã được cộng vào ví Admin!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -102,7 +102,7 @@ namespace Test1.View
             if (_selectedOrder.OrderStatus == "Pending")
             {
                
-                var user = _context.People.FirstOrDefault(p => p.Id == _selectedOrder.Id);
+                var user = _context.People.FirstOrDefault(p => p.Id.ToString() == _selectedOrder.Id.ToString());
                 if (user != null)
                 {
                  

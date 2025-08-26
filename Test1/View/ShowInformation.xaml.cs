@@ -48,7 +48,7 @@ namespace Test1.View
                     var order = context.Orders.FirstOrDefault(o => o.OrderId == orderId);
                     if (order != null)
                     {
-                        // Cập nhật người nhận
+                   
                         order.ReceiverName = txtFullName.Text.Trim();
                         order.ReceiverPhone = txtPhoneNumber.Text.Trim();
                         order.ReceiverAddress = txtOrderAddress.Text.Trim();
@@ -57,7 +57,7 @@ namespace Test1.View
 
                         MessageBox.Show("Order updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                        OrderUpdated?.Invoke(); // Gửi sự kiện ra ngoài để Customer nhận được
+                        OrderUpdated?.Invoke(); 
                         this.Close();
                     }
                     else

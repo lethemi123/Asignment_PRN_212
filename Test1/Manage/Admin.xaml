@@ -488,7 +488,22 @@
                                                 TextAlignment="Right" />
                                             <TextBox x:Name="txtPrice" Width="100" />
                                         </StackPanel>
-
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock
+                                                Width="70"
+                                                Margin="0,0,0,0"
+                                                VerticalAlignment="Center"
+                                                Text="Categrory"
+                                                TextAlignment="Left" />
+                                            <ComboBox
+                                                x:Name="cbxProductVariants"
+                                                Width="100"
+                                                Margin="0,0,0,0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                DisplayMemberPath="Storage"
+                                                SelectionChanged="cbxProductVariants_SelectionChanged" />
+                                        </StackPanel>
                                     </StackPanel>
                                     <StackPanel
                                         Grid.Row="1"
@@ -561,11 +576,11 @@
 
                                     <DataGridTemplateColumn>
                                         <DataGridTemplateColumn.Header>
-                                            <CheckBox x:Name="HeaderCheckbox" Click="HeaderCheckbox_Click" />
+                                            <CheckBox IsChecked="{Binding IsSelected}" />
                                         </DataGridTemplateColumn.Header>
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                                                <CheckBox Click="CheckBox_Click" IsChecked="{Binding IsSelected, Mode=TwoWay}" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
@@ -610,44 +625,7 @@
                                         </DataGridTextColumn.ElementStyle>
                                     </DataGridTextColumn>
 
-                                    <DataGridTextColumn Width="auto" Binding="{Binding Stock}">
-                                        <DataGridTextColumn.Header>
-                                            <TextBlock Text="Stock" />
-                                        </DataGridTextColumn.Header>
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="TextAlignment" Value="Center" />
-                                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                                <Setter Property="VerticalAlignment" Value="Center" />
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
 
-                                    <DataGridTextColumn Width="auto" Binding="{Binding Price}">
-                                        <DataGridTextColumn.Header>
-                                            <TextBlock Text="Price" />
-                                        </DataGridTextColumn.Header>
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="TextAlignment" Value="Center" />
-                                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                                <Setter Property="VerticalAlignment" Value="Center" />
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
-
-                                    <DataGridTextColumn Width="auto" Binding="{Binding Storage}">
-                                        <DataGridTextColumn.Header>
-                                            <TextBlock Text="Categories" />
-                                        </DataGridTextColumn.Header>
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="TextAlignment" Value="Center" />
-                                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                                <Setter Property="VerticalAlignment" Value="Center" />
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
 
                                     <DataGridTextColumn Width="auto" Binding="{Binding CreatedAt}">
                                         <DataGridTextColumn.Header>
@@ -729,7 +707,7 @@
 
 
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Width="70" Binding="{Binding Id}">
+                                    <DataGridTextColumn Width="70">
                                         <DataGridTextColumn.Header>
                                             <TextBlock Text="ID" />
                                         </DataGridTextColumn.Header>
@@ -819,8 +797,7 @@
                                         Name="txtUserIdAC"
                                         Grid.Column="1"
                                         Width="140"
-                                        HorizontalAlignment="Center"
-                                        Text="{Binding Id, Mode=TwoWay}" />
+                                        HorizontalAlignment="Center" />
 
                                     <!--  User Name  -->
                                     <TextBlock

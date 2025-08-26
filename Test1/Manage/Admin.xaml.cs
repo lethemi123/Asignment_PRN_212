@@ -20,18 +20,15 @@ using Test1.View;
 
 namespace Test1.Manage
 {
-    /// <summary>
-    /// Interaction logic for Admin.xaml
-    /// </summary>
     public partial class Admin : Window
     {
         private Person currentUser;
-        List<Person> personList = new List<Person>();
-        private ObservableCollection<ViewOrderModel> ItemHistoryBills = new ObservableCollection<ViewOrderModel>();
+        private ObservableCollection<Product> ProductList = new ObservableCollection<Product>();
         private List<Category> categoryList;
-        private List<Product> ProductList = new List<Product>();
-        private Product selectedProduct = null;
+        private Product selectProduct;
         private readonly Prn212AssignmentContext context = new Prn212AssignmentContext();
+        private ObservableCollection<ViewOrderModel> ItemHistoryBills = new ObservableCollection<ViewOrderModel>();
+
         public Admin(Person user)
         {
             InitializeComponent();
@@ -43,42 +40,110 @@ namespace Test1.Manage
             LoadProductData();
             LoadCategories();
             LoadHistoryBills();
-            
         }
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var border = sender as Border;
+            selectProduct = border?.DataContext as Product;
+
+            if (selectProduct != null)
+            {
+                txtProductName.Text = selectProduct.ProductName;
+                txtProductid.Text = selectProduct.ProductId.ToString();
+                txtDescription.Text = selectProduct.ProductDescription;
+                cbxCateGrory.SelectedValue = selectProduct.CategoryId;
+
+                cbxProductVariants.ItemsSource = selectProduct.ProductVariants;
+                cbxProductVariants.SelectedIndex = 0;
+
+                if (!string.IsNullOrEmpty(selectProduct.ImagePathProduct) && File.Exists(selectProduct.ImagePathProduct))
+                {
+                    ProductImage.Source = new BitmapImage(new Uri(selectProduct.ImagePathProduct));
+                }
+                else
+                {
+                    ProductImage.Source = null;
+                }
+
+                // Nếu có variant thì load stock & price tương ứng
+                var variant = selectProduct.ProductVariants.FirstOrDefault();
+                if (variant != null)
+                {
+                    txtPrice.Text = (variant.Price ?? 0).ToString("F2");
+                    txtStockProduct.Text = variant.Stock.ToString();
+                }
+            }
+        }
+
+
         private void LoadProductData()
         {
             var products = context.Products
-                .Include(p => p.ProductVariants)  
-                .Include(p => p.Category)         
-                .ToList();  
+                .Include(p => p.ProductVariants)
+                .Include(p => p.Category)
+                .ToList();
 
-            
-            var productList = products.Select(p => new
+            ProductList.Clear();
+            foreach (var p in products)
             {
-                p.ProductId,
-                p.ProductName,
-                p.ProductDescription,
-                Stock = p.ProductVariants.FirstOrDefault()?.Stock ?? 0,  
-                Price = (double)(p.ProductVariants.FirstOrDefault()?.Price ?? 0.0m),  
-                Storage = p.Category?.CategoryName ?? "",  
-                CreatedAt = p.CreatedAt?.ToString("yyyy-MM-dd"),
-                UpdatedAt = p.UpdatedAt?.ToString("yyyy-MM-dd"),
-                ImagePathProduct = p.ImagePathProduct
-            }).ToList();
+                p.IsSelected= false; 
+                ProductList.Add(p);
+            }
 
-            DataGridProduct.ItemsSource = productList;  // Gán dữ liệu vào DataGrid
+            DataGridProduct.ItemsSource = ProductList;
             LoadCategories();
         }
 
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            var checkBox = sender as CheckBox;
+            if (checkBox != null)
+            {
+                var product = checkBox.DataContext as Product;
+                if (product != null)
+                {
+                    product.IsSelected = checkBox.IsChecked ?? false;
+                }
+            }
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedProducts = ProductList.Where(p => p.IsSelected).ToList();
+
+            if (!selectedProducts.Any())
+            {
+                MessageBox.Show("Please select at least one product to delete!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            foreach (var product in selectedProducts)
+            {
+                var productInDb = context.Products
+                    .Include(p => p.ProductVariants)
+                    .FirstOrDefault(p => p.ProductId == product.ProductId);
+
+                if (productInDb != null)
+                {
+                    if (productInDb.Carts.Any() || productInDb.OrderDetails.Any())
+                    {
+                        MessageBox.Show("This product cannot be deleted because it is linked to a cart or an order!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
+                    // Xóa các ProductVariant liên quan trước
+                    context.ProductVariants.RemoveRange(productInDb.ProductVariants);
+
+                    // Sau đó mới xóa Product
+                    context.Products.Remove(productInDb);
+                }
+            }
 
 
-
-
-
-
-
-
-
+            context.SaveChanges();
+            LoadProductData();
+            MessageBox.Show($"{selectedProducts.Count} product(s) deleted successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
 
         private void LoadProfile(Person user)
         {
@@ -109,12 +174,10 @@ namespace Test1.Manage
 
         private void txtFullName_TextChanged(object sender, TextChangedEventArgs e)
         {
-           
         }
 
         private void rdoMale_Checked(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void loadManageUser()
@@ -123,15 +186,14 @@ namespace Test1.Manage
             DataGridUsers.ItemsSource = users;
         }
 
-
         private void btnChoosePicture_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();  
+            OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
             if (openFileDialog.ShowDialog() == true)
             {
                 ProfileImage.Source = new BitmapImage(new Uri(openFileDialog.FileName));
-            }   
+            }
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -139,7 +201,7 @@ namespace Test1.Manage
             var selectedPerson = DataGridUsers.SelectedItem as Person;
             if (selectedPerson != null)
             {
-                txtUserIdAC.Text = selectedPerson.Id;
+                txtUserIdAC.Text = selectedPerson.Id.ToString();
                 txtUserNameAC.Text = selectedPerson.UserName;
                 txtFullNameAC.Text = $"{selectedPerson.Lname} {selectedPerson.Fname}";
                 txtAgeAC.Text = selectedPerson.Age?.ToString() ?? "";
@@ -153,9 +215,7 @@ namespace Test1.Manage
                     rdoAdmin.IsChecked = true;
                 else
                     rdoCustomer.IsChecked = true;
-
             }
-
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -168,14 +228,20 @@ namespace Test1.Manage
 
         private void ControlBarUC_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
         }
 
         private void HeaderCheckbox_Click(object sender, RoutedEventArgs e)
         {
-
+            var headerCheckBox = sender as CheckBox;
+            if (headerCheckBox != null)
+            {
+                foreach (var product in ProductList)
+                {
+                    product.IsSelected = headerCheckBox.IsChecked ?? false;
+                }
+                DataGridProduct.Items.Refresh();
+            }
         }
-        
 
         private void btnBowseImageProduc_Click(object sender, RoutedEventArgs e)
         {
@@ -189,34 +255,24 @@ namespace Test1.Manage
 
         private void dataGrid_name_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
         }
 
         private void btnSearchAC_Click(object sender, RoutedEventArgs e)
         {
             string keyword = txtSearchAC.Text.Trim().ToLower();
+            var users = context.People.ToList();
 
-            // Kiểm tra nếu personList là null hoặc không chứa dữ liệu
-            if (personList == null || personList.Count == 0)
-            {
-                personList = context.People.ToList(); // Lấy lại danh sách người dùng từ cơ sở dữ liệu
-            }
-
-            // Lọc danh sách theo UserName
-            var filtered = personList
+            var filtered = users
                 .Where(p => !string.IsNullOrEmpty(p.UserName) && p.UserName.ToLower().Contains(keyword))
                 .ToList();
 
-            // Cập nhật lại DataGrid
             DataGridUsers.ItemsSource = filtered;
         }
-
-
 
         private void btnDeleteAC_Click(object sender, RoutedEventArgs e)
         {
             string id = txtUserIdAC.Text;
-            var personToDelete = context.People.FirstOrDefault(p => p.Id == id);
+            var personToDelete = context.People.FirstOrDefault(p => p.Id.ToString() == id);
             if (context.Orders.Any(o => o.PersonId == personToDelete.Id))
             {
                 MessageBox.Show("Không thể xóa người dùng này vì đang có đơn hàng liên kết.");
@@ -234,26 +290,25 @@ namespace Test1.Manage
         private void btnUpdateAC_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(txtUserNameAC.Text) ||
-       string.IsNullOrEmpty(txtFullNameAC.Text) ||
-       string.IsNullOrEmpty(txtAgeAC.Text) ||
-       string.IsNullOrEmpty(txtPhoneNumberAC.Text) ||
-       string.IsNullOrEmpty(txtEmailAC.Text) ||
-       string.IsNullOrEmpty(txtAddress.Text) ||
-       string.IsNullOrEmpty(pswdAC.Password) ||
-       (!rdoAdmin.IsChecked.Value && !rdoCustomer.IsChecked.Value)) // Kiểm tra nếu không chọn Role
+                string.IsNullOrEmpty(txtFullNameAC.Text) ||
+                string.IsNullOrEmpty(txtAgeAC.Text) ||
+                string.IsNullOrEmpty(txtPhoneNumberAC.Text) ||
+                string.IsNullOrEmpty(txtEmailAC.Text) ||
+                string.IsNullOrEmpty(txtAddress.Text) ||
+                string.IsNullOrEmpty(pswdAC.Password) ||
+                (!rdoAdmin.IsChecked.Value && !rdoCustomer.IsChecked.Value))
             {
                 MessageBox.Show("Please fill in all the required fields!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-
             string id = txtUserIdAC.Text;
-            var personToUpdate = context.People.FirstOrDefault(p => p.Id == id);
+            var personToUpdate = context.People.FirstOrDefault(p => p.Id.ToString() == id);
             if (personToUpdate != null)
             {
                 personToUpdate.UserName = txtUserNameAC.Text;
-                personToUpdate.Fname = txtFullNameAC.Text.Split(' ').Last();  // Tách Fname
-                personToUpdate.Lname = string.Join(" ", txtFullNameAC.Text.Split(' ').SkipLast(1)); // Lname
+                personToUpdate.Fname = txtFullNameAC.Text.Split(' ').Last();
+                personToUpdate.Lname = string.Join(" ", txtFullNameAC.Text.Split(' ').SkipLast(1));
                 personToUpdate.Age = int.TryParse(txtAgeAC.Text, out int age) ? age : null;
                 personToUpdate.Gender = txtGenderAC.Text;
                 personToUpdate.PhoneNumber = txtPhoneNumberAC.Text;
@@ -263,14 +318,13 @@ namespace Test1.Manage
                 personToUpdate.RoleAccount = rdoAdmin.IsChecked == true;
 
                 context.SaveChanges();
-                loadManageUser(); // Refresh lại DataGrid
+                loadManageUser();
                 MessageBox.Show("Cập nhật thành công!");
             }
         }
 
         private void btnCreateAC_Click(object sender, RoutedEventArgs e)
         {
-            // Kiểm tra nếu bất kỳ trường nào còn trống
             if (string.IsNullOrEmpty(txtUserNameAC.Text) ||
                 string.IsNullOrEmpty(txtFullNameAC.Text) ||
                 string.IsNullOrEmpty(txtAgeAC.Text) ||
@@ -278,16 +332,15 @@ namespace Test1.Manage
                 string.IsNullOrEmpty(txtEmailAC.Text) ||
                 string.IsNullOrEmpty(txtAddress.Text) ||
                 string.IsNullOrEmpty(pswdAC.Password) ||
-                (!rdoAdmin.IsChecked.Value && !rdoCustomer.IsChecked.Value)) // Kiểm tra nếu không chọn Role
+                (!rdoAdmin.IsChecked.Value && !rdoCustomer.IsChecked.Value))
             {
                 MessageBox.Show("Please fill in all the required fields!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Nếu không có trường trống, thực hiện tạo tài khoản mới
             Person newPerson = new Person
             {
-                Id = txtUserIdAC.Text,
+                
                 UserName = txtUserNameAC.Text,
                 Fname = txtFullNameAC.Text.Split(' ').Last(),
                 Lname = string.Join(" ", txtFullNameAC.Text.Split(' ').SkipLast(1)),
@@ -305,47 +358,14 @@ namespace Test1.Manage
             loadManageUser();
             MessageBox.Show("Tạo tài khoản mới thành công!");
         }
+
         private void LoadCategories()
         {
             categoryList = context.Categories.ToList();
             cbxCateGrory.ItemsSource = categoryList;
-            cbxCateGrory.DisplayMemberPath = "CategoryName";  
-            cbxCateGrory.SelectedValuePath = "CategoryId";    
+            cbxCateGrory.DisplayMemberPath = "CategoryName";
+            cbxCateGrory.SelectedValuePath = "CategoryId";
         }
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
-        {
-            var selectedProduct = DataGridProduct.SelectedItem as Product;  // Lấy sản phẩm được chọn từ DataGrid
-            if (selectedProduct == null)
-            {
-                MessageBox.Show("Vui lòng chọn sản phẩm để xóa!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            // Kiểm tra nếu có sản phẩm nào được chọn
-            var productInDb = context.Products.FirstOrDefault(p => p.ProductId == selectedProduct.ProductId);
-            if (productInDb != null)
-            {
-                // Kiểm tra có sản phẩm trong giỏ hàng hoặc đơn hàng không
-                if (productInDb.Carts.Any() || productInDb.OrderDetails.Any())
-                {
-                    MessageBox.Show("Không thể xóa sản phẩm này vì nó đang có trong giỏ hàng hoặc đơn hàng!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                context.Products.Remove(productInDb); // Xóa sản phẩm khỏi cơ sở dữ liệu
-                context.SaveChanges(); // Lưu thay đổi vào cơ sở dữ liệu
-                LoadProductData(); // Tải lại dữ liệu sản phẩm từ cơ sở dữ liệu
-                MessageBox.Show("Sản phẩm đã được xóa thành công!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
-                MessageBox.Show("Sản phẩm không tồn tại trong cơ sở dữ liệu!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-
-
-
 
         private void btnClearProduct_Click(object sender, RoutedEventArgs e)
         {
@@ -358,22 +378,19 @@ namespace Test1.Manage
             ProductImage.Source = null;
         }
 
-
         private void btnUpdateProduct_Click(object sender, RoutedEventArgs e)
         {
             var productId = txtProductid.Text;
             var product = context.Products.Include(p => p.ProductVariants)
-                                          .FirstOrDefault(p => p.ProductId == productId);
+                                          .FirstOrDefault(p => p.ProductId.ToString() == productId);
             if (product == null) return;
 
-            // Cập nhật thông tin sản phẩm
             product.ProductName = txtProductName.Text;
             product.ProductDescription = txtDescription.Text;
             product.CategoryId = cbxCateGrory.SelectedValue?.ToString();
             product.UpdatedAt = DateOnly.FromDateTime(DateTime.Now);
             product.ImagePathProduct = ProductImage.Source?.ToString();
 
-            // Cập nhật thông tin ProductVariant
             var variant = product.ProductVariants.FirstOrDefault();
             if (variant != null)
             {
@@ -388,8 +405,6 @@ namespace Test1.Manage
             MessageBox.Show("Cập nhật thành công!");
         }
 
-
-
         private void btnCreateProduct_Click(object sender, RoutedEventArgs e)
         {
             string productId = txtProductid.Text;
@@ -401,7 +416,7 @@ namespace Test1.Manage
 
             var newProduct = new Product
             {
-                ProductId =  "P" + productId,
+                ProductId = int.Parse("P" + productId.ToString()),
                 ProductName = productName,
                 ProductDescription = description,
                 CategoryId = categoryId,
@@ -414,7 +429,7 @@ namespace Test1.Manage
             {
                 Stock = stock,
                 Price = (decimal)price,
-                ProductId = newProduct.ProductId
+                ProductId = int.Parse(newProduct.ProductId.ToString())
             };
 
             newProduct.ProductVariants = new List<ProductVariant> { variant };
@@ -425,21 +440,16 @@ namespace Test1.Manage
             MessageBox.Show("Thêm sản phẩm thành công!");
         }
 
-
-
         private void DataGridProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedProduct = DataGridProduct.SelectedItem as Product;  // Thay vì dynamic, sử dụng Product
-
-            if (selectedProduct != null)
+            if (DataGridProduct.SelectedItem is Product selectedProduct)
             {
-                txtProductid.Text = selectedProduct.ProductId;
+                txtProductid.Text = selectedProduct.ProductId.ToString();
                 txtProductName.Text = selectedProduct.ProductName;
                 txtDescription.Text = selectedProduct.ProductDescription;
-                txtStockProduct.Text = selectedProduct.ProductVariants.FirstOrDefault()?.Stock.ToString() ?? "0";  // Lấy stock từ ProductVariants
-                txtPrice.Text = selectedProduct.ProductVariants.FirstOrDefault()?.Price.ToString() ?? "0";  // Lấy price từ ProductVariants
-
-                cbxCateGrory.SelectedValue = selectedProduct.CategoryId;  // Chọn category
+                txtStockProduct.Text = selectedProduct.ProductVariants?.FirstOrDefault()?.Stock.ToString() ?? "0";
+                txtPrice.Text = selectedProduct.ProductVariants?.FirstOrDefault()?.Price.ToString() ?? "0";
+                cbxCateGrory.SelectedValue = selectedProduct.CategoryId;
 
                 if (!string.IsNullOrEmpty(selectedProduct.ImagePathProduct) && File.Exists(selectedProduct.ImagePathProduct))
                 {
@@ -450,13 +460,7 @@ namespace Test1.Manage
                     ProductImage.Source = null;
                 }
             }
-            LoadCategories();  // Đảm bảo danh sách danh mục được tải lại
         }
-
-
-
-
-
 
         private void LoadHistoryBills()
         {
@@ -465,7 +469,7 @@ namespace Test1.Manage
                 .Include(o => o.OrderDetails).ThenInclude(od => od.Product)
                 .Select(o => new ViewOrderModel
                 {
-                    Id = o.PersonId,
+                    Id = o.PersonId.ToString(),
                     OrderId = o.OrderId,
                     ReceiverName = o.ReceiverName,
                     ReceiverPhone = o.ReceiverPhone,
@@ -484,14 +488,11 @@ namespace Test1.Manage
         }
 
 
-
-
         private void DataGridYourHistory_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (DataGridYourHistory.SelectedItem != null)
             {
-                var selectedOrder = (ViewOrderModel)DataGridYourHistory.SelectedItem; 
-
+                var selectedOrder = (ViewOrderModel)DataGridYourHistory.SelectedItem;
                 var orderWindow = new OrderInformation(selectedOrder);
                 orderWindow.Show();
             }
@@ -501,34 +502,35 @@ namespace Test1.Manage
             }
         }
 
-
         private void DataGridYourHistory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
         }
-      
-
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            DataGridYourHistory.ItemsSource = context.Orders
-                .Include(o => o.Person)
-                .Select(o => new
-                {
-                    o.PersonId,
-                     o.OrderId,
-                    o.ReceiverName,
-                   o.ReceiverPhone,
-                    o.ReceiverAddress,
-                    TotalQuantity = o.OrderDetails.Sum(od => od.Quantity),
-                    TotalPrice = o.TotalMoney ?? 0,
-                    OrderDate = o.OrderDate ?? DateTime.MinValue,
-                    o.OrderStatus,
-                    Description = string.Join(", ", o.OrderDetails.Select(od => od.Product.ProductDescription)),
-                    OrderDetails = o.OrderDetails.ToList(),
-                    ContentOrder = string.Join(", ", o.OrderDetails.Select(od => od.Product.ProductName + " x" + od.Quantity))
-                })
-                .ToList();
+            LoadHistoryBills();
+            loadManageUser();
+            LoadProductData();
+            LoadCategories();
+          
+        }
+
+        private void cbxProductVariants_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            var selectedVariant = context.ProductVariants.ToList().FirstOrDefault(v => v.VariantId.ToString() == comboBox.SelectedValue?.ToString());
+            var product = comboBox?.DataContext as Product;
+            
+
+            if (product != null && selectedVariant != null)
+            {
+              
+                product.SelectedVariant = selectedVariant;
+
+                // Ví dụ: hiển thị giá hoặc tồn kho tương ứng
+                txtPrice.Text = selectedVariant.Price?.ToString("F2");
+                txtStockProduct.Text = selectedVariant.Stock?.ToString();
+            }
         }
     }
 }
